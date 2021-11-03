@@ -16,6 +16,10 @@ int main() {
     //asdajksdlkasd
     //asdas
     //Asdas//sdas
+
+    //asdkajsdlkasld
+    // ASlon
+    cout << "Aslon" << "hamidov" << endl;
     
         
 }
