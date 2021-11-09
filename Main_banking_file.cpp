@@ -21,6 +21,7 @@ int main() {
     // ASlon
     cout << "Aslon" << "hamidov" << endl;
     cout << "Khabibullok" << "Khallok" << endl;
+    //s
     
         
 }
