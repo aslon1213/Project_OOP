@@ -20,6 +20,7 @@ int main() {
     //asdkajsdlkasld
     // ASlon
     cout << "Aslon" << "hamidov" << endl;
+    cout << "Khabibullok" << "Khallok" << endl;
     
         
 }
