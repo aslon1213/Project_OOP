@@ -22,6 +22,11 @@ int main() {
     cout << "Aslon" << "hamidov" << endl;
     cout << "Khabibullok" << "Khallok" << endl;
     //s
+
+
+int hhh() {
+    cout << 'asdnbasd' << endl;
+}
     
         
 }
