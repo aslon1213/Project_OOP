@@ -7,17 +7,25 @@
 // banking system 
 
 #include <iostream>
-using namespace as std;
+using namespace std;
+
+#include <fstream>
+using std::ofstream;
+
 
 
 int main() {
-    cout << "H" << endl;
-    cout << "ASDASLKD" << endl;
-    //asdajksdlkasd
-    //asdas
-    //Asdas//sdas
+    ofstream outClientFile("data.dat", ios::app);
+
+
+    char name[30];
+    double balance;
+    while(cin >> name >> balance ) {
+        outClientFile << name < " " << balance << "" << endl;
+        cout << " ? ";
+    }    
     
-        
+    return 0;
 }
 
 
