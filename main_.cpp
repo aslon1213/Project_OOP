@@ -21,7 +21,7 @@ int withdraw(){
    result=::bal-with;
    cout<<with<<" withdrawn from your balance. Your current balance is "<<result<<endl;
     }
-
+main();
 }
 int main(){
 int a;
