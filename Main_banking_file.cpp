@@ -31,10 +31,7 @@ int main() {
             filename << name << "\t" << password << "\t" << balance << "\n"; 
         filename.close();
     }*/
-
-
-
-
+    
     //filename.open("data.txt",ios::in);
     int choice;
     cout << "1. Login" << endl;
