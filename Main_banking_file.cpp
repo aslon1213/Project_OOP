@@ -8,7 +8,7 @@ using namespace std;
 
 #include <string>
 
-#include <bits/stdc++.h>
+#include <sstream>
 
 string current_acc[3];
 
@@ -31,7 +31,10 @@ int main() {
             filename << name << "\t" << password << "\t" << balance << "\n"; 
         filename.close();
     }*/
-    
+
+
+
+
     //filename.open("data.txt",ios::in);
     int choice;
     cout << "1. Login" << endl;
@@ -122,7 +125,7 @@ int add_account() {
                 fstream filename;
                 filename.open("data.txt", ios::app);
                 if (filename.is_open()) {
-                    filename << name << "\t" << pas1 << "\t" << 0 << "\n";
+                    filename << name << " " << pas1 << " " << 0 << " ";
                     filename.close();
                     cout << "You account has benn succesfully added yo system" << endl;
                     main();
