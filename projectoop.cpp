@@ -20,8 +20,9 @@ return 0;
 //Withdraw
 int withdraw(){
     int with,result;
+    
         cin>>with;
-    if(current_acc[2]<500){
+    if(::bal<500){
         cout<<"You don't have enough money to withdraw!"<<endl;
     }
     else if(bal>=500){
