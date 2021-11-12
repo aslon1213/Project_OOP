@@ -7,6 +7,7 @@
 #include <string>
 #include <cstring>
 #include <sstream>
+#include <curses.h>
 using namespace std;
 int bal;
 int main();
@@ -21,17 +22,19 @@ return 0;
 //Withdraw
 int withdraw(){
     int with,result;
-    
-        cin>>with;
-    if(::bal<500){
-        cout<<"You don't have enough money to withdraw!"<<endl;
-    }
-    else if(bal>=500){
-    cout<<"Enter how much you want to withdraw: "<<endl;
-
-   cout<<with<<" withdrawn from your balance. Your current balance is "<<result<<endl;
-    }
-main();
+    string i=current_acc[2];
+     stringstream geek(i);
+     int bal;
+     geek>>bal;
+     if(bal>=250){
+         cout<<"How much you want to withdraw: "<<endl;
+         cin>>with;
+         result=bal-with;
+         cout<<with<<" withdrawn from your account. Your current balance is "<<result<<endl;
+     }
+     else{
+         cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
+     }
 }
 
 int login();
@@ -113,8 +116,7 @@ int add_account() {
         length = strlen(pass);
          while (length < 6 || length > 10)
 {
-cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"
-     << "Enter the password again: ";
+    cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"<< "Enter the password again: ";
      cin>>pass;
     length = strlen(pass);
 }
@@ -159,9 +161,11 @@ int logged_in() {
     cin >> choice;
     switch (choice) {
         case 1:
-        
             balance();
             logged_in();
+            break;
+            case 2: withdraw();
+                    logged_in();
             break;
         case 5:
             return 0;
@@ -201,28 +205,3 @@ int login() {
     }
     return 0;
 }
-/* 
-int main()
-{
-const int SIZE = 12; // Maximum size for the c-string
-char pass[SIZE];   // to hold password c-string.
-int length;
-
-
-// get line of input
-cout << "Enter a password between 6 and " << (SIZE - 2) << "characters long:\n";
-cin.getline(pass, SIZE);
-
-
-length = strlen(pass);
-
-while (length < 6 || length > 10)
-{
-cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"
-     << "Enter the password again: ";
-cin.getline(pass, SIZE);
-    length = strlen(pass);
-}
-
-return 0;
-} */
