@@ -16,7 +16,7 @@ string current_acc[3];
 
 //Balance
 int balance(){
-cout<<"Your balance is "<<current_acc[2]<<endl;
+cout<<"Your balance is "<<current_acc[2]<<"$"<<endl;
 return 0;
 }
 //Withdraw
@@ -30,7 +30,7 @@ int withdraw(){
          cout<<"How much you want to withdraw: "<<endl;
          cin>>with;
          result=bal-with;
-         cout<<with<<" withdrawn from your account. Your current balance is "<<result<<endl;
+         cout<<with<<" withdrawn from your account. Your current balance is "<<result<<"$"<<endl;
      }
      else{
          cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
@@ -45,7 +45,7 @@ void deposit(){
     cin>>deposit;
     geek>>b;
     sum=b+deposit;
-    cout<<"Your current balance is "<<sum<<endl;
+    cout<<"Your current balance is "<<sum<<"$"<<endl;
 }
 int login();
 int add_account();
