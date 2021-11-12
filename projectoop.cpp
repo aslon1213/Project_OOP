@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <sstream>
 using namespace std;
 int bal;
@@ -97,23 +98,37 @@ int new_account_check(string name) {
 
 // Function which manages adding a new account a file(data.txt)
 int add_account() {
-    string name, pas1, pas2;
+    string name, pas2;
+    const int SIZE = 12; // Maximum size for the c-string
+    char pass[SIZE];   // to hold password c-string.
+    int length;
+
     do {
         cout << " *****************   Creating new account ****************" << endl;
         cout << "Account Name: -> ";
         cin >> name;
+       
         cout << "password -> ";
-        cin >> pas1;
+        cin >> pass;
+        length = strlen(pass);
+         while (length < 6 || length > 10)
+{
+cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"
+     << "Enter the password again: ";
+     cin>>pass;
+    length = strlen(pass);
+}
         cout << "retype password -> ";
         cin >> pas2;
+       
         system("clear");
 
-        if (pas1 == pas2) {  
+        if (pass == pas2) {  
             if (new_account_check(name)) {  // existing account check
                 fstream filename;
                 filename.open("data.txt", ios::app);
                 if (filename.is_open()) {
-                    filename << name << "\t" << pas1 << "\t" << 0 << "\n";
+                    filename << name << "\t" << pass << "\t" << 0 << "\n";
                     filename.close();
                     cout << "You account has benn succesfully added yo system" << endl;
                     main();
@@ -123,7 +138,7 @@ int add_account() {
             cout << "paswords do not match each other!!! " << endl << "Retype again or exit" << endl;
             add_account();} 
     }
-    while (pas1 != pas2);
+    while (pass != pas2);
     return 0;
 }
 
@@ -186,3 +201,28 @@ int login() {
     }
     return 0;
 }
+/* 
+int main()
+{
+const int SIZE = 12; // Maximum size for the c-string
+char pass[SIZE];   // to hold password c-string.
+int length;
+
+
+// get line of input
+cout << "Enter a password between 6 and " << (SIZE - 2) << "characters long:\n";
+cin.getline(pass, SIZE);
+
+
+length = strlen(pass);
+
+while (length < 6 || length > 10)
+{
+cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"
+     << "Enter the password again: ";
+cin.getline(pass, SIZE);
+    length = strlen(pass);
+}
+
+return 0;
+} */
