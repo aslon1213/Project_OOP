@@ -9,27 +9,24 @@
 using namespace std;
 int bal;
 int main();
+int logged_in();
 string current_acc[3];
 
 //Balance
 int balance(){
-int bal;
-bal=0;
-cout<<"Your balance is: "<<bal<<endl;
-main();
-return bal;
+cout<<"Your balance is: "<<current_acc[2]<<endl;
+return 0;
 }
 //Withdraw
 int withdraw(){
     int with,result;
-    
-    if(::bal<500){
+        cin>>with;
+    if(current_acc[2]<500){
         cout<<"You don't have enough money to withdraw!"<<endl;
     }
     else if(bal>=500){
     cout<<"Enter how much you want to withdraw: "<<endl;
-    cin>>with;
-   result=::bal-with;
+
    cout<<with<<" withdrawn from your balance. Your current balance is "<<result<<endl;
     }
 main();
@@ -75,6 +72,7 @@ void login_name(string s) {
         current_acc[i] = word;
         i++;
     }
+    
     
 }
 
@@ -135,16 +133,18 @@ int add_account() {
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "1.Widthdrawl" << endl;
-    cout << "2. Deposit" << endl;
-    cout << "3. Convert currency" << endl;
-    cout << "4. Get Credit" << endl;
-    cout << "5. Exit" << endl;
+    cout << "1.Balance" << endl;
+    cout << "2.Widthdrawl" << endl;
+    cout << "3. Deposit" << endl;
+    cout << "4. Convert currency" << endl;
+    cout << "5. Get Credit" << endl;
+    cout << "6. Exit" << endl;
     int choice;
     cin >> choice;
     switch (choice) {
         case 1:
-            withdraw();
+        
+            balance();
             logged_in();
             break;
         case 5:
