@@ -151,8 +151,8 @@ int add_account() {
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "1.Balance" << endl;
-    cout << "2.Widthdrawl" << endl;
+    cout << "1. Balance" << endl;
+    cout << "2. Widthdraw" << endl;
     cout << "3. Deposit" << endl;
     cout << "4. Convert currency" << endl;
     cout << "5. Get Credit" << endl;
