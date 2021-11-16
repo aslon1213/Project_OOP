@@ -34,21 +34,26 @@ string get_line(string line) {
 
 // writies changes made to account to data.txt
 void write_changes(){
-    fstream myfile;
-    fstream myfile_2;
-    myfile.open("data.txt", ios::out | ios::in);
-    myfile.open("data_copy.txt",ios::app);
-    if(myfile.is_open()){
-        if(myfile_2.is_open()){
-            string line;
-            while(getline(myfile,line)){
-                myfile_2 << line;
-            }
+    fstream myfile, myfile_3;
+    myfile_3.open("data_copy.txt",ios::out);
+    myfile.open("data.txt", ios::out);
+
+    
+    
+
+    if (myfile.is_open()){
+        string line;
+        while(getline(myfile,line)){
+            myfile_3 << line;
         }
     }
-    if(myfile.is_open()) {
+
+    ofstream myfile_2("data_copy.txt");
+    
+
+    if(myfile_2.is_open()) {
         string line;
-        while(getline(myfile,line)) {
+        while(getline(myfile_3,line)) {
             string lines[3];
             stringstream ss(line);
             string word;
@@ -57,29 +62,16 @@ void write_changes(){
                 lines[i] = word;
                 i++;
             }
+
             if ( lines[0] == current_acc[0]) {
-                    string line_2;
-                    while(getline(myfile_2,line)){
-                        string linesss[3];
-                        stringstream sss(linesss);
-                        string words;
-                        int i = 0;
-                        while (sss >> words) {
-                            linesss[i] = words;
-                            i++;
-                        }
-                        if(linesss[2] == current_acc[0]){
-                            continue;
-                        }else {
-                            myfile << line_2;
-                        }
-                    }
+                    continue;
             }
+            myfile << line;
         }
     }
 
     
-}
+} 
 
 
 
@@ -297,3 +289,8 @@ int login() {
     }
     return 0;
 }
+
+
+
+
+
