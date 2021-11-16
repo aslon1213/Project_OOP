@@ -7,14 +7,79 @@
 #include <string>
 #include <cstring>
 #include <sstream>
-#include <curses.h>
+
 using namespace std;
 int bal;
 int main();
 int logged_in();
 string current_acc[3];
 
-void make_changes
+
+
+
+string get_line(string line) {
+    string lines[3];
+    stringstream ss(line);
+    string word;
+    int i = 0;
+    while (ss >> word) {
+        lines[i] = word;
+        i++;
+    }
+
+    return "sss";
+
+
+}
+
+// writies changes made to account to data.txt
+void write_changes(){
+    fstream myfile;
+    fstream myfile_2;
+    myfile.open("data.txt", ios::out | ios::in);
+    myfile.open("data_copy.txt",ios::app);
+    if(myfile.is_open()){
+        if(myfile_2.is_open()){
+            string line;
+            while(getline(myfile,line)){
+                myfile_2 << line;
+            }
+        }
+    }
+    if(myfile.is_open()) {
+        string line;
+        while(getline(myfile,line)) {
+            string lines[3];
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) {
+                lines[i] = word;
+                i++;
+            }
+            if ( lines[0] == current_acc[0]) {
+                    string line_2;
+                    while(getline(myfile_2,line)){
+                        string linesss[3];
+                        stringstream sss(linesss);
+                        string words;
+                        int i = 0;
+                        while (sss >> words) {
+                            linesss[i] = words;
+                            i++;
+                        }
+                        if(linesss[2] == current_acc[0]){
+                            continue;
+                        }else {
+                            myfile << line_2;
+                        }
+                    }
+            }
+        }
+    }
+
+    
+}
 
 
 
@@ -25,21 +90,30 @@ return 0;
 }
 //Withdraw
 int withdraw(){
-    int with,result;
+    int with;
     string i=current_acc[2];
      stringstream geek(i);
      int bal;
      geek>>bal;
-     if(bal>=current_acc[2]){
+     if(bal>=250){
          cout<<"How much you want to withdraw: "<<endl;
          cin>>with;
-         currenct_acc[2] = currect_accc[2] - with;
-         cout<<with<<" withdrawn from your account. Your current balance is "<<result<<"$"<<endl;
+         if ( bal >= with){
+             bal =bal - with;
+         cout<<with<<" withdrawn from your account. Your current balance is "<<bal<<"$"<<endl;
+         string ball = to_string(bal);
+         current_acc[2] = ball;
+         write_changes();
+         }
+         else {
+             cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
+         }
+         
      }
      else{
          cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
      }
-    make_changes();
+    
 
 
 }

@@ -26,7 +26,7 @@ main();
 int main(){
 int a;
 cout<<"1.Balance Enquiry"<<endl;
-cout<<"2.Withdraw Amount"<<endl;
+cout<<"2.Withdraw Amount"<<endl;;
 cin>>a;
 
 switch(a){
