@@ -66,8 +66,9 @@ int main() {
         case 2:
             add_account();
         case 3:
-            cout << "STOP" << endl;
+            cout << "Good bye" << endl;
             return 0;
+            break;
         default:
             main();
     }
@@ -160,9 +161,8 @@ int logged_in() {
     cout << "1. Balance" << endl;
     cout << "2. Widthdraw" << endl;
     cout << "3. Deposit" << endl;
-    cout << "4. Convert currency" << endl;
-    cout << "5. Get Credit" << endl;
-    cout << "6. Exit" << endl;
+    cout << "4. Exchange rates" << endl;
+    cout << "5. Exit" << endl;
     int choice;
     cin >> choice;
     switch (choice) {
@@ -177,6 +177,8 @@ int logged_in() {
             logged_in();
             break;
         case 5:
+        cout<<"Good bye."<<endl;
+ 
             return 0;
         default:
             cout << "Our team is working on this, please wait" << endl;
