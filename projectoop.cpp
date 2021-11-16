@@ -14,6 +14,10 @@ int main();
 int logged_in();
 string current_acc[3];
 
+void make_changes
+
+
+
 //Balance
 int balance(){
 cout<<"Your balance is "<<current_acc[2]<<"$"<<endl;
@@ -26,15 +30,18 @@ int withdraw(){
      stringstream geek(i);
      int bal;
      geek>>bal;
-     if(bal>=250){
+     if(bal>=current_acc[2]){
          cout<<"How much you want to withdraw: "<<endl;
          cin>>with;
-         result=bal-with;
+         currenct_acc[2] = currect_accc[2] - with;
          cout<<with<<" withdrawn from your account. Your current balance is "<<result<<"$"<<endl;
      }
      else{
          cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
      }
+    make_changes();
+
+
 }
 //Deposit
 void deposit(){
