@@ -10,7 +10,6 @@
 
 using namespace std;
 int bal;
-<<<<<<< HEAD
 void write_changes();
 int main();
 int logged_in();
@@ -18,126 +17,8 @@ int logged_in();
 string current_acc[3];
 int login();
 int add_account();
-=======
-int main();
-int logged_in();
-string current_acc[3];
 
 
-
->>>>>>> cdf94f2cf51a3fc571c8cd5fc8807282010ac86e
-
-string get_line(string line) {
-    string lines[3];
-    stringstream ss(line);
-    string word;
-    int i = 0;
-    while (ss >> word) {
-        lines[i] = word;
-        i++;
-    }
-
-<<<<<<< HEAD
-=======
-    return "sss";
-
-
-}
-
-// writies changes made to account to data.txt
-void write_changes(){
-       
-    fstream myfile;
-    fstream temp_file;
-
-    myfile.open("data.txt",ios::in);
-    temp_file.open("temp_data.txt",ios::out);
-    //copy data.txt to temp_Data.txt
-    if(myfile.is_open()){
-        string line;
-        while(getline(myfile,line)){
-            temp_file << line << endl;
-        }
-        temp_file.close();
-        myfile.close();
-    }
-
-    myfile.open("data.txt", ios::out);
-    temp_file.open("temp_data.txt", ios::in);
-    // making changes 
-    if(temp_file.is_open()){
-        string line;
-        while(getline(temp_file,line)){
-            string lines[3];
-            stringstream ss(line);
-            string word;
-            int i = 0;
-            while (ss >> word) {
-                lines[i] = word;
-                i++;
-            }
-            if(lines[0] == current_acc[0]) {
-                myfile << current_acc[0] << " " << current_acc[1] << " " << current_acc[2] << endl;
-                continue;
-            }
-            myfile << lines[0] << " " << lines[1] << " " << lines[2] << endl;
-        }
-        myfile.close();
-        temp_file.close();
-    }
-
-}
-
-
->>>>>>> cdf94f2cf51a3fc571c8cd5fc8807282010ac86e
-
-//Balance
-int balance(){
-cout<<"Your balance is "<<current_acc[2]<<"$"<<endl;
-return 0;
-}
-//Withdraw
-int withdraw(){
-    int with;
-    string i=current_acc[2];
-     stringstream geek(i);
-     int bal;
-     geek>>bal;
-     if(bal>=250){
-         cout<<"How much you want to withdraw: "<<endl;
-         cin>>with;
-         if ( bal >= with){
-             bal =bal - with;
-         cout<<with<<" withdrawn from your account. Your current balance is "<<bal<<"$"<<endl;
-         string ball = to_string(bal);
-         current_acc[2] = ball;
-         write_changes();
-         }
-         else {
-             cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
-         }
-         
-     }
-     else{
-         cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
-     }
-    
-
-
-}
-//Deposit
-void deposit(){
-    int deposit ,b,sum;
-    string a=current_acc[2];
-    stringstream geek(a);
-    cout<<"Enter how much you want to deposit"<<endl;
-    cin>>deposit;
-    geek>>b;
-    sum=b+deposit;
-    cout<<"Your current balance is "<<sum<<"$"<<endl;
-}
-int login();
-int add_account();
 
 
 int main() {
@@ -163,7 +44,6 @@ int main() {
             main();
     }
     return 0;
-<<<<<<< HEAD
 }
 
 
@@ -179,8 +59,6 @@ void deposit(){
     current_acc[2] = to_string(summ);
     cout<<"Your current balance is "<<current_acc[2]<<"$"<<endl;
     write_changes();
-=======
->>>>>>> cdf94f2cf51a3fc571c8cd5fc8807282010ac86e
 }
 
 
