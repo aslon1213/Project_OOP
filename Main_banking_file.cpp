@@ -3,39 +3,132 @@
 // Banking system 
 // banking system 
 #include <iostream>
-using namespace std;
 #include <fstream>
-
 #include <string>
-
+#include <cstring>
 #include <sstream>
 
+using namespace std;
+int bal;
+int main();
+int logged_in();
 string current_acc[3];
 
 
 
+
+string get_line(string line) {
+    string lines[3];
+    stringstream ss(line);
+    string word;
+    int i = 0;
+    while (ss >> word) {
+        lines[i] = word;
+        i++;
+    }
+
+    return "sss";
+
+
+}
+
+// writies changes made to account to data.txt
+void write_changes(){
+       
+    fstream myfile;
+    fstream temp_file;
+
+    myfile.open("data.txt",ios::in);
+    temp_file.open("temp_data.txt",ios::out);
+    //copy data.txt to temp_Data.txt
+    if(myfile.is_open()){
+        string line;
+        while(getline(myfile,line)){
+            temp_file << line << endl;
+        }
+        temp_file.close();
+        myfile.close();
+    }
+
+    myfile.open("data.txt", ios::out);
+    temp_file.open("temp_data.txt", ios::in);
+    // making changes 
+    if(temp_file.is_open()){
+        string line;
+        while(getline(temp_file,line)){
+            string lines[3];
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) {
+                lines[i] = word;
+                i++;
+            }
+            if(lines[0] == current_acc[0]) {
+                myfile << current_acc[0] << " " << current_acc[1] << " " << current_acc[2] << endl;
+                continue;
+            }
+            myfile << lines[0] << " " << lines[1] << " " << lines[2] << endl;
+        }
+        myfile.close();
+        temp_file.close();
+    }
+
+}
+
+
+
+//Balance
+int balance(){
+cout<<"Your balance is "<<current_acc[2]<<"$"<<endl;
+return 0;
+}
+//Withdraw
+int withdraw(){
+    int with;
+    string i=current_acc[2];
+     stringstream geek(i);
+     int bal;
+     geek>>bal;
+     if(bal>=250){
+         cout<<"How much you want to withdraw: "<<endl;
+         cin>>with;
+         if ( bal >= with){
+             bal =bal - with;
+         cout<<with<<" withdrawn from your account. Your current balance is "<<bal<<"$"<<endl;
+         string ball = to_string(bal);
+         current_acc[2] = ball;
+         write_changes();
+         }
+         else {
+             cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
+         }
+         
+     }
+     else{
+         cout<<"Sorry :( You don't have enough money to withdraw"<<endl;
+     }
+    
+
+
+}
+//Deposit
+void deposit(){
+    int deposit ,b,sum;
+    string a=current_acc[2];
+    stringstream geek(a);
+    cout<<"Enter how much you want to deposit"<<endl;
+    cin>>deposit;
+    geek>>b;
+    sum=b+deposit;
+    cout<<"Your current balance is "<<sum<<"$"<<endl;
+}
 int login();
 int add_account();
 
 
 int main() {
     fstream filename;
-
-    //filename.open("data.txt",ios::app);
-    /*string name, password;
-    int balance;
-    if (filename.is_open())
-    {
-        cin >> name;
-        cin >> password >> balance;
-            filename << name << "\t" << password << "\t" << balance << "\n"; 
-        filename.close();
-    }*/
-
-
-
-
-    //filename.open("data.txt",ios::in);
     int choice;
     cout << "1. Login" << endl;
     cout << "2. Add account " << endl;
@@ -48,32 +141,14 @@ int main() {
             break;
         case 2:
             add_account();
+            break;
         case 3:
-            cout << "STOP" << endl;
+            cout << "Good bye" << endl;
             return 0;
+            break;
         default:
             main();
     }
-
-
-    /*if(filename.is_open()){
-        string line;
-        while (getline(filename,line))
-        {
-            cout << line << endl;
-        }
-        
-    }*/
-
-
-    /*char name[30];
-    double balance;
-
-    /*while(cin >> name >> balance ) {
-        outClientFile << name << " " << balance << "" << endl;
-        cout << " ? ";
-    }    */
-
     return 0;
 }
 
@@ -86,9 +161,8 @@ void login_name(string s) {
         current_acc[i] = word;
         i++;
     }
-    /*for(int m = 0; m < 3; m++){
-        cout << current_acc[m] << " ";
-    }*/
+    
+    
 }
 
 // checks whether a new given account name exist in file(data.txt) or not
@@ -111,22 +185,36 @@ int new_account_check(string name) {
 
 // Function which manages adding a new account a file(data.txt)
 int add_account() {
-    string name, pas1, pas2;
+    string name, pas2;
+    const int SIZE = 12; // Maximum size for the c-string
+    char pass[SIZE];   // to hold password c-string.
+    int length;
+
     do {
         cout << " *****************   Creating new account ****************" << endl;
         cout << "Account Name: -> ";
         cin >> name;
+       
         cout << "password -> ";
-        cin >> pas1;
+        cin >> pass;
+        length = strlen(pass);
+         while (length < 6 || length > 10)
+{
+    cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"<< "Enter the password again: ";
+     cin>>pass;
+    length = strlen(pass);
+}
         cout << "retype password -> ";
         cin >> pas2;
+       
+        system("clear");
 
-        if (pas1 == pas2) {  
+        if (pass == pas2) {  
             if (new_account_check(name)) {  // existing account check
                 fstream filename;
                 filename.open("data.txt", ios::app);
                 if (filename.is_open()) {
-                    filename << name << " " << pas1 << " " << 0 << " ";
+                    filename << name << "\t" << pass << "\t" << 0 << "\n";
                     filename.close();
                     cout << "You account has benn succesfully added yo system" << endl;
                     main();
@@ -136,7 +224,7 @@ int add_account() {
             cout << "paswords do not match each other!!! " << endl << "Retype again or exit" << endl;
             add_account();} 
     }
-    while (pas1 != pas2);
+    while (pass != pas2);
     return 0;
 }
 
@@ -147,19 +235,27 @@ int add_account() {
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "1.Widthdrawl" << endl;
-    cout << "2. Deposit" << endl;
-    cout << "3. Convert currency" << endl;
-    cout << "4. Get Credit" << endl;
+    cout << "1. Balance" << endl;
+    cout << "2. Widthdraw" << endl;
+    cout << "3. Deposit" << endl;
+    cout << "4. Exchange rates" << endl;
     cout << "5. Exit" << endl;
     int choice;
     cin >> choice;
     switch (choice) {
         case 1:
-            cout << "Our team is working on this, please wait" << endl;
+            balance();
+            logged_in();
+            break;
+            case 2: withdraw();
+                    logged_in();
+            break;
+            case 3: deposit();
             logged_in();
             break;
         case 5:
+        cout<<"Good bye."<<endl;
+ 
             return 0;
         default:
             cout << "Our team is working on this, please wait" << endl;
@@ -179,6 +275,7 @@ int login() {
     cin >> name;
     cout << "The password : ";
     cin >> password;
+    system("clear");
     myfile.open("data.txt", ios:: in );
     if (myfile.is_open()) {
         string line;
