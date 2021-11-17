@@ -1,3 +1,19 @@
+/*
+Additional features: 
+1. Reset password
+2. Change password
+3. transfer money
+4. Credit -- 1) leasing   2) home credit    3) overdrive   4) Microcredit
+5. Exchange rates - update
+6. Exchange money
+7. Different currencies
+
+
+*/
+
+
+
+
 // Ballar mana shhu faylga yoziladi kodlariz
 // Ertaga qanaqa ishlash kerakligini tushuntirishga harakat qilama
 // Banking system 
@@ -275,8 +291,3 @@ int login() {
     }
     return 0;
 }
-
-
-
-
-// Aslon KHamidov 10:36
