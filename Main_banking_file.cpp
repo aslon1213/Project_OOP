@@ -1,41 +1,55 @@
+/*
+/////////////////////////////////////////////////////////////////////////////////
+Additional features: 
+1. Reset password ------- Nodir
+2. Change password --------- Nodir
+
+4. Credit -- 1) leasing   2) home credit    3) overdrive   4) Microcredit ----------Khabibullokh
+5. Exchange rates - update --------- Khabibullokh
+6. Exchange money -------- Aslon maybe you will do this guys
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+Implemented  Aslon
+7. Different currencies - done
+3. transfer money   - done (not fully only some small checks should be implemented
+but generally works good, transfer money from to another account)
+8. Accounts with four currency types - <done>
+9. Depositing to four currency types based on input - done
+10. Withdrawing from one of four currency types based on input - done
+
+*/
+
+
+
+
 // Ballar mana shhu faylga yoziladi kodlariz
 // Ertaga qanaqa ishlash kerakligini tushuntirishga harakat qilama
 // Banking system 
 // banking system 
 #include <iostream>
-using namespace std;
 #include <fstream>
-
 #include <string>
-
+#include <cstring>
 #include <sstream>
 
-string current_acc[3];
-
-
-
+using namespace std;
+int bal;
+int main();
+int logged_in();
+// this array to store credentials of currently logged in account
+string current_acc[6];
+//
+string transfer_acc[6];
 int login();
 int add_account();
 
 
+
+
 int main() {
     fstream filename;
-
-    //filename.open("data.txt",ios::app);
-    /*string name, password;
-    int balance;
-    if (filename.is_open())
-    {
-        cin >> name;
-        cin >> password >> balance;
-            filename << name << "\t" << password << "\t" << balance << "\n"; 
-        filename.close();
-    }*/
-
-
-
-
-    //filename.open("data.txt",ios::in);
     int choice;
     cout << "1. Login" << endl;
     cout << "2. Add account " << endl;
@@ -48,33 +62,129 @@ int main() {
             break;
         case 2:
             add_account();
+            break;
         case 3:
-            cout << "STOP" << endl;
+            cout << "Good bye" << endl;
             return 0;
+            break;
         default:
             main();
     }
-
-
-    /*if(filename.is_open()){
-        string line;
-        while (getline(filename,line))
-        {
-            cout << line << endl;
-        }
-        
-    }*/
-
-
-    /*char name[30];
-    double balance;
-    while(cin >> name >> balance ) {
-        outClientFile << name < " " << balance << "" << endl;
-        cout << " ? ";
-    }    */
-
     return 0;
 }
+
+// writies changes made to account to data.txt
+void write_changes(int cho = 0){   
+    fstream myfile;
+    fstream temp_file;
+    //opening files to read and write
+    myfile.open("data.txt",ios::in); // the main file
+    temp_file.open("temp_data.txt",ios::out); // template file
+    //copy data.txt to temp_Data.txt
+    if(myfile.is_open()){
+        string line;
+        while(getline(myfile,line)){
+            temp_file << line << endl;
+        }
+        temp_file.close();
+        myfile.close();
+    }
+    // reopening files to re-write the contents of data.txt(mainfile)
+    myfile.open("data.txt", ios::out);
+    temp_file.open("temp_data.txt", ios::in);
+    // making changes to the data.txt 
+    if(temp_file.is_open()){
+        string line;
+        while(getline(temp_file,line)){
+            string lines[6];
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) {
+                lines[i] = word;
+                i++;
+            }
+            if(cho == 0)
+            {
+                if(lines[0] == current_acc[0]) 
+                {
+                    myfile << current_acc[0] << " " << current_acc[1] << " " << current_acc[2] << " " << current_acc[3] << " " << current_acc[4] << " " << current_acc[5] << endl;
+                    continue;
+                }
+            }else if (cho == 1)
+            {
+                if(lines[0] == transfer_acc[0]) 
+                {
+                    myfile << transfer_acc[0] << " " << transfer_acc[1] << " " << transfer_acc[2] << " " << transfer_acc[3] << " " << transfer_acc[4] << " " << transfer_acc[5] << endl;
+                    continue;
+                }
+            }
+
+            myfile << lines[0] << " " << lines[1] << " " << lines[2] <<" "<< lines[3] << " " << lines[4] << " " << lines[5] << endl;
+        }
+        myfile.close();
+        temp_file.close();
+    }
+}
+
+// to convert from string to int given string and return integer value
+int convert_from_str_to_int(string c) {
+    
+    int b;
+    stringstream geek(c);
+    geek>>b;
+    return b;   
+}
+//Balance - shows current balance of a user
+int balance(int cho = 0){
+    if(cho == 0){
+            cout<<"        Your wallet balances:     ------   "<<current_acc[2]<<"$     --------"<<endl;
+            cout<<"                                  ------   "<<current_acc[3]<<"€ --------" <<endl;
+            cout<<"                                  ------   "<<current_acc[4]<<"UZS  --------" <<endl;
+            cout<<"                                  ------   "<<current_acc[5]<<"₽   --------" <<endl;
+
+    }
+    return 0;
+}
+
+
+
+
+//Deposit
+void deposit(int cho = 0,int cur = 2, int transfer_money = 0)
+{
+    string a;
+    int deposit,b,summ;
+    if (cho == 0)
+    {
+        a=current_acc[cur];
+        stringstream geek(a);
+        cout<<"Enter how much you want to deposit"<<endl;
+        cin>>deposit;
+        geek>>b;
+        summ=b+deposit;
+    }else if ( cho == 1) 
+    {
+        a = transfer_acc[cur];
+        stringstream geek(a);
+        geek >> b;
+        summ = b + transfer_money;
+    }
+    
+    // for choice dopisiting values 
+    if(cho == 0) 
+    {
+        current_acc[cur] = to_string(summ);
+        balance();
+        write_changes();
+    }else
+    {
+        transfer_acc[cur] = to_string(summ);
+        write_changes(1);
+    }
+    
+}
+
 
 // account adds logged accounts credential(name,password,balance) to global array current_acc to easy access
 void login_name(string s) {
@@ -84,10 +194,8 @@ void login_name(string s) {
     while (ss >> word) {
         current_acc[i] = word;
         i++;
-    }
-    /*for(int m = 0; m < 3; m++){
-        cout << current_acc[m] << " ";
-    }*/
+    }    
+    
 }
 
 // checks whether a new given account name exist in file(data.txt) or not
@@ -110,22 +218,36 @@ int new_account_check(string name) {
 
 // Function which manages adding a new account a file(data.txt)
 int add_account() {
-    string name, pas1, pas2;
+    string name, pas2;
+    const int SIZE = 12; // Maximum size for the c-string
+    char pass[SIZE];   // to hold password c-string.
+    int length;
+
     do {
         cout << " *****************   Creating new account ****************" << endl;
         cout << "Account Name: -> ";
         cin >> name;
+       
         cout << "password -> ";
-        cin >> pas1;
+        cin >> pass;
+        length = strlen(pass);
+         while (length < 6 || length > 10)
+{
+    cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"<< "Enter the password again: ";
+     cin>>pass;
+    length = strlen(pass);
+}
         cout << "retype password -> ";
         cin >> pas2;
+       
+        system("clear");
 
-        if (pas1 == pas2) {  
+        if (pass == pas2) {  
             if (new_account_check(name)) {  // existing account check
                 fstream filename;
                 filename.open("data.txt", ios::app);
                 if (filename.is_open()) {
-                    filename << name << " " << pas1 << " " << 0 << " ";
+                    filename << name << " " << pass << " " << "0" << " " << "0" << " " << "0" << " " << "0" << endl;
                     filename.close();
                     cout << "You account has benn succesfully added yo system" << endl;
                     main();
@@ -135,30 +257,157 @@ int add_account() {
             cout << "paswords do not match each other!!! " << endl << "Retype again or exit" << endl;
             add_account();} 
     }
-    while (pas1 != pas2);
+    while (pass != pas2);
     return 0;
 }
 
 
+//Withdraw
+int withdraw(int with, int cur = 2){
+    string i=current_acc[cur];
+    stringstream geek(i);
+    int bal;
+    geek>>bal;
+    if(bal>=250){
+        if ( bal >= with){
+            bal = bal - with;
+            cout<<with<<" withdrawn from your account. Your current balance on this wallet is "<<bal<<endl;
+            string ball = to_string(bal);
+            current_acc[cur] = ball;
+            write_changes(0);
+        }else {
+            cout<<"Sorry :( You don't have enough money to withdraw - 1"<<endl;
+        }   
+    }else{
+        cout<<"Sorry :( You don't have enough money to withdraw - 2 or your balance is less than wintdrawing limit"<<endl;
+    }
+    return 0;
+}
 
 
+int transfer_money(){
+    
+    // checking transferring accounts existense and assigning values of it to a array transfer_acc[6]
+    string tr_acc;
+    fstream myfile;
+    myfile.open("data.txt",ios::in);
+    if(myfile.is_open()){
+        int n = 0;
+        do 
+        {
+            cout << "To which Account you want to transfer money: ";
+            cin >> tr_acc;
+            string line;
+            while(getline(myfile,line)){
+                stringstream ss(line);
+                string word;
+                int i = 0;
+                while (ss >> word) {
+                transfer_acc[i] = word;
+                i++;
+                }
+                if(transfer_acc[0] == tr_acc) {
+                    n = 1;
+                    break;
+                }
+            }
+            if(n == 0) {
+                cout << "There is no account match to transfer with this name..... Please try again !" << endl;
+            }
+        }while(n == 0);
+    }
+    
+    // getting wallet type and amount of money to be used
+    int money;
+    int type; // type of wallet
+    cout << "Please choose your wallet for specific currency transfer should be done: " << endl;
+    cout << "1: Dollar - ($)" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽)  " <<endl << "5: Exit --------- ";
+    cin >>  type;
+    // Printing the choice of user ---- wallet choice
+    switch (type)
+    {
+    case 1: cout << "You have chosen Dollar - ($) wallet" << endl<<endl;
+        break;
+    case 2: cout << "You have chosen Euro - (€) wallet" << endl<<endl;
+        break;
+    case 3: cout << "You have chosen Uzbek Som ---> UZS() wallet" << endl<<endl;
+        break;
+    case 4: cout << "You have chosen Rubl - () wallet" << endl<<endl;
+        break;
+    case 5: return 0;
+    default: cout << "Please choose one from above" << endl;
+        break;
+    }
+    cout << "What is the amount of money you want to transfer: ";
+    cin >> money;
+    if( money > convert_from_str_to_int(current_acc[type+1]) - 250){
+        cout << "Sorry it seems the amount of money YOU are transferring is higher than your WALLET BALANCE!!!" << endl << endl;
+        logged_in();
+    }
+    
+    // all actions go here
+    switch (type){
+    case 1:  withdraw(money);
+             deposit(1,2,money);
+             logged_in();
+        break;
+    case 2: withdraw(money,3);
+            deposit(1,3,money);
+            logged_in;
+            break;
+    case 3: withdraw(money,4);
+            deposit(1,4,money);
+            logged_in;
+            break;
+    case 4: withdraw(money,5);
+            deposit(1,5,money);
+            logged_in;
+            break;
+    case 5: return 0;
+    default: cout << "Please choose one from above" << endl;
+        break;
+    }
+    return 0;
+}
 
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "1.Widthdrawl" << endl;
-    cout << "2. Deposit" << endl;
-    cout << "3. Convert currency" << endl;
-    cout << "4. Get Credit" << endl;
-    cout << "5. Exit" << endl;
+    cout << "1. Balance" << endl;
+    cout << "2. Widthdraw" << endl;
+    cout << "3. Deposit" << endl;
+    cout << "4. Transfer money" << endl;
+    cout << "5. Exchange rates" << endl;
+    cout << "6. Exit" << endl;
     int choice;
+    string tr_acc; //transfer account
     cin >> choice;
     switch (choice) {
         case 1:
-            cout << "Our team is working on this, please wait" << endl;
+            balance(0);
             logged_in();
             break;
-        case 5:
+        case 2: int money,wallet_type;
+                cout << "Please, choose one of your wallets below   " <<endl;
+                cout << "1: Dollar ---> USD($)" << endl << "2: Euro ---> (€)" << endl <<"3. Uzbek Som ---> UZS()" << endl <<"4: Russian Ruble ---> RB(₽) " <<endl << "5: Exit --------- ";
+                cin >> wallet_type;
+                cout << "Type amount of money you wanna withdraw from your account: ";
+                cin >> money;
+                withdraw(money,wallet_type + 1);
+                logged_in();
+                break;
+        case 3: cout << "Please, choose one of your wallets below   " <<endl;
+                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) " <<endl << "5: Exit --------- ";
+                cin >> wallet_type;
+                deposit(0,wallet_type + 1,0);
+                logged_in();
+                break;
+        case 4: cout << "(Note that you can transfer money only within accounts in our database)" << endl; 
+                transfer_money();
+                break;
+        case 6:
+            cout<<"Good bye."<<endl;
+ 
             return 0;
         default:
             cout << "Our team is working on this, please wait" << endl;
@@ -167,7 +416,6 @@ int logged_in() {
     }
     return 0;
 }
-
 
 // login checking function
 int login() {
@@ -178,6 +426,7 @@ int login() {
     cin >> name;
     cout << "The password : ";
     cin >> password;
+    system("clear");
     myfile.open("data.txt", ios:: in );
     if (myfile.is_open()) {
         string line;
