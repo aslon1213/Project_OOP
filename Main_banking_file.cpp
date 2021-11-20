@@ -34,6 +34,7 @@ but generally works good, transfer money from to another account)
 #include <cstring>
 #include <sstream>
 
+
 using namespace std;
 int bal;
 int main();
@@ -45,9 +46,16 @@ string transfer_acc[6];
 int login();
 int add_account();
 
-
-
-
+//Change password
+//Reset password
+int reset_pass(){
+   fstream reset;
+   string password;
+   cout<<"Reset password: "<<endl;
+   cin>>password;
+   
+   
+}
 int main() {
     fstream filename;
     int choice;
@@ -227,7 +235,6 @@ int add_account() {
         cout << " *****************   Creating new account ****************" << endl;
         cout << "Account Name: -> ";
         cin >> name;
-       
         cout << "password -> ";
         cin >> pass;
         length = strlen(pass);
