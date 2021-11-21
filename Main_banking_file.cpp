@@ -47,7 +47,7 @@ string current_acc[6];
 string transfer_acc[6];
 int login();
 int add_account();
-//user data
+//user data for reseting
 void reset()
 {
 string name , surname , phone; 
@@ -68,14 +68,6 @@ if(myfile.is_open()){
 
 
 
-
-
-
-//Change password
-//Reset password
-
-   
-   
 
 int main(){
     fstream filename;
@@ -492,7 +484,7 @@ void exchange_rates()
   Y = d * 6.39;
   cout << d << "$ => " << R << " Rubs " << endl;
   cout << d << "$ => " << E << " Euros " << endl; // outputs
-  cout << d << "$ => " << S << " Sums  " << endl;
+  cout << d << "$ => " << S << " Sôms  " << endl;
   cout << d << "$ => " << Y << " Chinese yuans  " << endl;
   cout<< " These exchange rates only for today, it is changing on a daily basis \n";
   cout << "                   Thanks for choosing us 🙂 👋                    "<<endl;
