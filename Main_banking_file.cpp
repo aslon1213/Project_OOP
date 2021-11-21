@@ -45,18 +45,37 @@ string current_acc[6];
 string transfer_acc[6];
 int login();
 int add_account();
+//user data
+void reset()
+{
+string name , surname , phone; 
+string array_data[3]={name,surname,phone };
+cout<<"Enter your first name: "<<endl;
+cin>>array_data[0];
+cout<<"Enter your second name: "<<endl;
+cin>>array_data[1];
+cout<<"Enter your phone number: "<<endl;
+cin>>array_data[2];
+
+fstream myfile;
+myfile.open("user_data.txt",ios::out);
+if(myfile.is_open()){
+    myfile<<name<<" "<<surname<<" "<<phone<<endl;
+    myfile.close();
+}}
+
+
+
+
+
 
 //Change password
 //Reset password
-int reset_pass(){
-   fstream reset;
-   string password;
-   cout<<"Reset password: "<<endl;
-   cin>>password;
+
    
    
-}
-int main() {
+
+int main(){
     fstream filename;
     int choice;
     cout << "1. Login" << endl;
@@ -77,6 +96,7 @@ int main() {
             break;
         default:
             main();
+            
     }
     return 0;
 }
