@@ -495,6 +495,6 @@ void exchange_rates()
   cout << d << "$ => " << S << " Sums  " << endl;
   cout << d << "$ => " << Y << " Chinese yuans  " << endl;
   cout<< " These exchange rates only for today, it is changing on a daily basis \n";
-  cout << "                   Thanks for choosing us 🙂 👋                    ";
+  cout << "                   Thanks for choosing us 🙂 👋                    "<<endl;
  
 } 
