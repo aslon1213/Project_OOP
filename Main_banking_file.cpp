@@ -38,6 +38,8 @@ but generally works good, transfer money from to another account)
 using namespace std;
 int bal;
 int main();
+//Exchange rates
+void exchange_rates();
 int logged_in();
 // this array to store credentials of currently logged in account
 string current_acc[6];
@@ -429,6 +431,10 @@ int logged_in() {
                 deposit(0,wallet_type + 1,0);
                 logged_in();
                 break;
+                case 5: exchange_rates();
+                logged_in();
+                break;
+                
         case 4: cout << "(Note that you can transfer money only within accounts in our database)" << endl; 
                 transfer_money();
                 break;
@@ -471,3 +477,24 @@ int login() {
     }
     return 0;
 }
+//Exchange rates 
+void exchange_rates()
+{
+  int  d; //int is a variable that can store some integer values
+  double R, E, S, Y; //declaring variable via operator float
+
+  cout << "******************************* Exchange rates in our bank: ***********************************" << "\n";
+  cout << "Dear our client please if you want to know about exchange rates input amount of money in dollars: "; // just asking amount of money in order to convert
+  cin >> d;// putting stream insertion operator to accept input
+  R = d * 73.52;
+  E = d * 0.89;
+  S = d * 10736.39;//formulas to convert 
+  Y = d * 6.39;
+  cout << d << "$ => " << R << " Rubs " << endl;
+  cout << d << "$ => " << E << " Euros " << endl; // outputs
+  cout << d << "$ => " << S << " Sums  " << endl;
+  cout << d << "$ => " << Y << " Chinese yuans  " << endl;
+  cout<< " These exchange rates only for today, it is changing on a daily basis \n";
+  cout << "                   Thanks for choosing us 🙂 👋                    ";
+ 
+} 
