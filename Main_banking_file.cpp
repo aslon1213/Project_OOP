@@ -58,12 +58,11 @@ cout<<"Enter your second name: "<<endl;
 cin>>array_data[1];
 cout<<"Enter your phone number: "<<endl;
 cin>>array_data[2];
-
-fstream myfile;
-myfile.open("user_data.txt",ios::out);
-if(myfile.is_open()){
-    myfile<<name<<" "<<surname<<" "<<phone<<endl;
-    myfile.close();
+fstream user_data;
+user_data.open("user_data.txt",ios::out);
+if(user_data.is_open()){
+ user_data<<array_data[0]<<" "<<array_data[1]<<" "<<array_data[2]<<endl;
+    user_data.close();
 }}
 
 
@@ -71,6 +70,7 @@ if(myfile.is_open()){
 
 int main(){
     fstream filename;
+    fstream user_data;
     int choice;
     cout << "1. Login" << endl;
     cout << "2. Add account " << endl;
@@ -465,6 +465,24 @@ int login() {
         }
         cout << "You provided wrong crediantials" << endl;
         cout << "Try again" << endl;
+        for(int i=2;i>=1;i--){
+            if(i==2){
+            cout<<"Enter password again. You have " <<i<< " chances: "<<endl;
+            cin>>password;
+            }
+            if(i==1){
+            cout<<"Enter password again. You have " <<i<< " chance: "<<endl;
+            cin>>password;
+            }
+
+            if (current_acc[0] == name && current_acc[1] == password) {
+                cout << current_acc[0] << " ---- You succesfully login to your account" << endl;
+                logged_in();
+                break;
+            }
+        }
+        cout<<"So in order to reset password, please enter information about you!! "<<endl;
+        reset();
         login();
     }
     return 0;
