@@ -483,11 +483,22 @@ int login() {
         cout << "Try again" << endl;
         for(int i=2;i>=1;i--){
             if(i==2){
-            cout<<"Enter password again. You have " <<i<< " chances: "<<endl;
+            cout<<"Your username or password is incorrect " <<i<< " chances: "<<endl;
+            cout<<"Enter the username: ";
+            cin>>name;
+            cout<<"Enter the password: ";
             cin>>password;
+             if (current_acc[0] == name && current_acc[1] == password) {
+                cout << current_acc[0] << " ---- You succesfully login to your account" << endl;
+                logged_in();
+                break;
+            }
             }
             if(i==1){
-            cout<<"Enter password again. You have " <<i<< " chance: "<<endl;
+            cout<<"Your username or password is incorrect " <<i<< " chance: "<<endl;
+            cout<<"Enter the username: ";
+            cin>>name;
+            cout<<"Enter the password: ";
             cin>>password;
             }
 
