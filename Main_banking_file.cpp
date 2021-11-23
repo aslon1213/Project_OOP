@@ -38,8 +38,12 @@ but generally works good, transfer money from to another account)
 using namespace std;
 int bal;
 int main();
+//Feedback
+void feedback();
 //Exchange rates
 void exchange_rates();
+//Converting
+void converting();
 int logged_in();
 // this array to store credentials of currently logged in account
 string current_acc[6];
@@ -59,7 +63,7 @@ cin>>array_data[1];
 cout<<"Enter your phone number: "<<endl;
 cin>>array_data[2];
 fstream user_data;
-user_data.open("user_data.txt",ios::out);
+user_data.open("user_data.txt",ios::app);
 if(user_data.is_open()){
  user_data<<array_data[0]<<" "<<array_data[1]<<" "<<array_data[2]<<endl;
     user_data.close();
@@ -72,9 +76,12 @@ int main(){
     fstream filename;
     fstream user_data;
     int choice;
-    cout << "1. Login" << endl;
-    cout << "2. Add account " << endl;
-    cout << "3. Exit " << endl;
+    cout << "         🏦🏦🏦  Welcome to our bank named 'BANK'! 🏦🏦🏦         \n ";
+    cout << ">>>>>>>>>>>>> Please login or add acoount: <<<<<<<<<<<<<<<" << "\n";
+    cout << "*                      1. Login=>>                        *" << endl;
+    cout << "*                      2. Add account=>>                  *" << endl;
+    cout << "*                      3. Exit=>>                         *" << endl;
+    cout << ">>>>>>>>>>>>>>>>>>>>>>>> 💸💸💸  <<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
     cin >> choice;
 
     switch (choice) {
@@ -85,7 +92,7 @@ int main(){
             add_account();
             break;
         case 3:
-            cout << "Good bye" << endl;
+            cout << "            Good bye, have a nice day ʘ‿ʘ 👋 🤚          " << endl;
             return 0;
             break;
         default:
@@ -260,6 +267,7 @@ int add_account() {
 }
         cout << "retype password -> ";
         cin >> pas2;
+        reset();
        
         system("clear");
 
@@ -273,7 +281,9 @@ int add_account() {
                     cout << "You account has benn succesfully added yo system" << endl;
                     main();
                 } 
-            }else{ cout << "This account name exists in system. Please choose another name";}
+            }else{ cout << "This account name exists in system. Please choose another name"<<endl;
+            login();
+            }
         }else {
             cout << "paswords do not match each other!!! " << endl << "Retype again or exit" << endl;
             add_account();} 
@@ -394,12 +404,16 @@ int transfer_money(){
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "1. Balance" << endl;
-    cout << "2. Widthdraw" << endl;
-    cout << "3. Deposit" << endl;
-    cout << "4. Transfer money" << endl;
-    cout << "5. Exchange rates" << endl;
-    cout << "6. Exit" << endl;
+    cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>> Our MENU: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+    cout << "         (✷‿✷)                  1. Balance                                (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  2. Withdraw                               (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  3. Deposit                                (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  4. Transfer money                         (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  5. Daily exchange rates                   (✷‿✷)" << endl;
+    cout<<  "         (✷‿✷)                  6. Converting money into other currencies (✷‿✷)  \n";
+    cout<<  "         (✷‿✷)                  7. Pay INHA^s contract with 5% cashback   (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  8. Exit            (✷‿✷)" << endl;
+    cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n ";
     int choice;
     string tr_acc; //transfer account
     cin >> choice;
@@ -423,17 +437,19 @@ int logged_in() {
                 deposit(0,wallet_type + 1,0);
                 logged_in();
                 break;
-                case 5: exchange_rates();
-                logged_in();
-                break;
+              
                 
         case 4: cout << "(Note that you can transfer money only within accounts in our database)" << endl; 
                 transfer_money();
                 break;
-        case 6:
-            cout<<"Good bye."<<endl;
- 
-            return 0;
+                  case 5: exchange_rates();
+                logged_in();
+                break;
+        case 6: converting();
+        logged_in();
+        break;
+        case 8:feedback();
+        break;
         default:
             cout << "Our team is working on this, please wait" << endl;
             logged_in();
@@ -458,7 +474,7 @@ int login() {
         while (getline(myfile, line)) {
             login_name(line);
             if (current_acc[0] == name && current_acc[1] == password) {
-                cout << current_acc[0] << " ---- You succesfully login to your account" << endl;
+                cout << current_acc[0] << " ---- You have  succesfully logged to your account" << endl;
                 logged_in();
                 break;
             }
@@ -483,7 +499,7 @@ int login() {
         }
         cout<<"So in order to reset password, please enter information about you!! "<<endl;
         reset();
-        login();
+        main();
     }
     return 0;
 }
@@ -508,3 +524,92 @@ void exchange_rates()
   cout << "                   Thanks for choosing us 🙂 👋                    "<<endl;
  
 } 
+void converting() {
+    string currency, currency2;
+    double value, value2;
+    cout << "<<<<<<<<<<<<< Welcome to our conversion programm, we are over the moon to see you here :)) >>>>>>>>>>>>>>>>>>\n";
+    cout << "*****************************Which currency would you like to convert?***************************************\n";
+    cout << "                           (We have 4 different options: Rub, Sum, Dollars, Euro)                            \n ";
+    cin >> currency;
+    cout << "To which currency you would like to convert to?\n";
+    cin >> currency2;
+    cout << "How much money you wanna convert?\n";
+    cin >> value;
+    if (currency == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Rub" || currency == "rub") {
+            value2 = value * 123.4;
+            cout << value << "$ is equal to " << value2 << " rub "<< "\n";
+        }
+        else if (currency2 == "Sum" || currency == "sum") {
+            value2 = value * 9800;
+            cout << value << "$ is equal to " << value2<< " sum" << "\n";
+
+        }
+        else if (currency2 == "Euro" || currency == "euro") {
+            value2 = value * 12000;
+            cout << value << "$ is equal to " << value2<<" euros " << "\n";
+
+        }
+    }
+    else if (currency == "Rub" || currency == "rub") {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+            value2 = value * 123;
+            cout << value << " rubs is equal to " << value2<<" dollars" << "\n";
+        }
+        else if (currency2 == "Sum" || currency == "sum") {
+            value2 = value * 0.514;
+
+            cout << value << " rubs is equal to " << value2<<" sums"        << "\n";
+        }
+        else if ( currency == "Euro" || currency == "euro") {
+            value2 = value * 0.1200;
+            cout << value << "rubs is equal to " << value2<< " euros" << "\n";
+        }
+    }
+    else if (currency == "euro" || currency == "Euro") {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+            value2 = value * 0.050;
+            cout << value << " euros is equal to " << value2<<" dollars" << "\n";
+        }
+        else if (currency2 == "Rub" || currency == "rub") {
+            value2 = value * 8.865;
+            cout << value << " euros is equal to " << value2<<" rubs"      << "\n";
+        }
+        else if (currency2 == "Sum" || currency == "sum") {
+
+            value2 = value * 9.46;
+
+            cout << value << " euros is equal to " << value2 <<" sums"      << "\n";
+
+        }
+    }
+    else if (currency == "Sum" || currency == "sum" ) {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+            value2 = value * 123;
+            cout << value << "sums is equal to " << value2<<"dollars" << "\n";
+        }
+        else if (currency2 == "Euro" || currency == "euro") {
+            value2 = value * 1567;
+            cout << value << " sums is equal to " << value2<<" euros" << "\n";
+
+        }
+        else if (currency2 == "Rub" || currency == "rub") {
+            value2 = value * 9805;
+            cout << value << " sums is equal to " << value2<< " rubs" << "\n";
+
+        }
+
+    }
+        else {
+
+        cout << "Unfortunately you have mistaken, check spelling. Try again please";
+
+    }
+}
+void feedback() {
+
+    string response; 
+    cout<<"Dear client, please write your feedback there =>> \n";
+    cin>>response;
+    main();
+}
