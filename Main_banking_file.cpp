@@ -68,8 +68,6 @@ if(user_data.is_open()){
 }}
 
 
-
-
 int main(){
     fstream filename;
     fstream user_data;
@@ -175,8 +173,6 @@ int balance(int cho = 0){
 }
 
 
-
-
 //Deposit
 void deposit(int cho = 0,int cur = 2, int money = 0)
 {
@@ -223,6 +219,7 @@ void login_name(string s) {
     
 }
 
+
 // checks whether a new given account name exist in file(data.txt) or not
 // if yes returns 0 else 1
 int new_account_check(string name) {
@@ -239,6 +236,7 @@ int new_account_check(string name) {
     }
     return 1;
 }
+
 
 void inha_contract_pay() {
     
@@ -266,8 +264,6 @@ void inha_contract_pay() {
             else cout << " *** Payment is cancelled :(\n"; 
         } 
 }
-
-
 
 
 // Function which manages adding a new account a file(data.txt)
@@ -493,15 +489,18 @@ int logged_in() {
     return 0;
 }
 
+
 // login checking function
 int login() {
 
-    fstream myfile;
     
-    myfile.open("data.txt", ios:: in );
-    int i =  0; // checking wrong input timess
+        int i =  0; // checking wrong input timess    
+   
     while(1)   
-{   
+    {  
+        fstream myfile; 
+         myfile.open("data.txt", ios:: in );
+   
     string name, password;
     
     if ( i >= 3)
@@ -510,7 +509,7 @@ int login() {
     }
     cout << "The login name : ";
     cin >> name;
-    if((name == "reset" || password == "reset") && i >= 3) 
+    if((name == "reset" || password == "reset" ||name == "RESET" || name == "Reset") && i >= 3) 
     {
         cout << "You have been redirected to reset password tool !!!!" << endl << endl;
         reset();
@@ -521,51 +520,29 @@ int login() {
         cout << "You have been redirected to password reset tool !!!!" << endl << endl;
         reset();
     }
-
-    cout << name << " " << password << endl;
     /*system("cls");*/
     // where the file is read and login is checked
-    if (myfile.is_open()) {
-        string line;
-        while (getline(myfile, line)) 
+    string line;
+    while (getline(myfile, line)) 
+    {
+        login_name(line);
+        if (current_acc[0] == name && current_acc[1] == password) 
         {
-            login_name(line);
-            if (current_acc[0] == name && current_acc[1] == password) 
-            {
-                cout << current_acc[0] << " ->-> 🥳 Congratulations 🥳! You have succesfully logged to your account <-<- " << endl;
-                logged_in();
-                break;
-            }else 
-            {
-                cout << "You provided wrong crediantials " << endl;
-                cout << "Try again" << endl;
-            }
-            
-                    /*            for(int i=2;i>=1;i--)
-            {
-                if(i==2){
-                    cout<<"Enter password again. You have " <<i<< " chances: "<<endl;
-                    cin>>password;
-                }
-                if(i==1){
-                cout<<"Enter password again. You have " <<i<< " chance: "<<endl;
-                cin>>password;
-                }
-
-                if (current_acc[0] == name && current_acc[1] == password) 
-                {
-                    cout << current_acc[0] << " ->-> 🥳🥳🥳 Congratulations 🥳🥳🥳! You have succesfully logged to your account <-<- " << endl;
-                    logged_in();
-                    break;
-                }*/
+            cout << current_acc[0] << " ->-> 🥳 Congratulations 🥳! You have succesfully logged to your account <-<- " << endl;
+            logged_in();
+            break;
         }
-        i++;
-        
-    }       
-}
+    }
+    cout << "You provided wrong crediantials " << endl;
+    cout << "Try again" << endl;
+    i++;       
     myfile.close();
+}
+    
     return 0;
 }
+
+
 //Exchange rates 
 void exchange_rates()
 {
@@ -587,6 +564,8 @@ void exchange_rates()
   
  
 } 
+
+
 //Conversion proggram
 void converting() {
     string currency, currency2;
