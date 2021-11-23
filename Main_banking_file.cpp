@@ -546,47 +546,47 @@ void converting() {
     cin >> currency2;
     cout << "How much money you wanna convert?\n";
     cin >> value;
-    if (currency == "Dollars" || currency == "dollars" || currency == "USD") {
-        if (currency2 == "Rub" || currency == "rub") {
+    if (currency == "Dollars" || currency == "dollars" || currency == "USD" || currency == "dollar" || currency == "Dollar") {
+        if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 123.4;
             cout << value << "$ is equal to " << value2 << " rub "<< "\n";
         }
-        else if (currency2 == "Sum" || currency == "sum") {
+        else if (currency2 == "Sum" || currency2 == "sum") {
             value2 = value * 9800;
             cout << value << "$ is equal to " << value2<< " sum" << "\n";
 
         }
-        else if (currency2 == "Euro" || currency == "euro") {
+        else if (currency2 == "Euro" || currency2 == "euro") {
             value2 = value * 12000;
             cout << value << "$ is equal to " << value2<<" euros " << "\n";
 
         }
     }
     else if (currency == "Rub" || currency == "rub") {
-        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD" || currency2 == "Dollar" || currency2 =="dollar") {
             value2 = value * 123;
             cout << value << " rubs is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Sum" || currency == "sum") {
+        else if (currency2 == "Sum" || currency2 == "sum") {
             value2 = value * 0.514;
 
             cout << value << " rubs is equal to " << value2<<" sums"        << "\n";
         }
-        else if ( currency == "Euro" || currency == "euro") {
+        else if ( currency2 == "Euro" || currency2 == "euro") {
             value2 = value * 0.1200;
             cout << value << "rubs is equal to " << value2<< " euros" << "\n";
         }
     }
     else if (currency == "euro" || currency == "Euro") {
-        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
             value2 = value * 0.050;
             cout << value << " euros is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Rub" || currency == "rub") {
+        else if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 8.865;
             cout << value << " euros is equal to " << value2<<" rubs"      << "\n";
         }
-        else if (currency2 == "Sum" || currency == "sum") {
+        else if (currency2 == "Sum" || currency2 == "sum") {
 
             value2 = value * 9.46;
 
@@ -595,16 +595,16 @@ void converting() {
         }
     }
     else if (currency == "Sum" || currency == "sum" ) {
-        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
             value2 = value * 123;
             cout << value << "sums is equal to " << value2<<"dollars" << "\n";
         }
-        else if (currency2 == "Euro" || currency == "euro") {
+        else if (currency2 == "Euro" || currency2 == "euro") {
             value2 = value * 1567;
             cout << value << " sums is equal to " << value2<<" euros" << "\n";
 
         }
-        else if (currency2 == "Rub" || currency == "rub") {
+        else if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 9805;
             cout << value << " sums is equal to " << value2<< " rubs" << "\n";
 
