@@ -352,7 +352,7 @@ int transfer_money(){
     int money;
     int type; // type of wallet
     cout << "Please choose your wallet for specific currency transfer should be done: " << endl;
-    cout << "1: Dollar - ($)" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽)  " <<endl << "5: Exit --------- ";
+    cout << "1: Dollar - ($)" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽)  " <<endl << "5: Exit --------- " << endl;
     cin >>  type;
     // Printing the choice of user ---- wallet choice
     switch (type)
@@ -365,7 +365,10 @@ int transfer_money(){
         break;
     case 4: cout << "You have chosen Rubl - () wallet" << endl<<endl;
         break;
-    case 5: return 0;
+    case 5: 
+    main();
+    return 0;
+    break;
     default: cout << "Please choose one from above" << endl;
         break;
     }
@@ -432,7 +435,7 @@ int logged_in() {
                 logged_in();
                 break;
         case 3: cout << "Please, choose one of your wallets below   " <<endl;
-                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) " <<endl << "5: Exit --------- ";
+                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) " <<endl;
                 cin >> wallet_type;
                 deposit(0,wallet_type + 1,0);
                 logged_in();
@@ -442,7 +445,7 @@ int logged_in() {
         case 4: cout << "(Note that you can transfer money only within accounts in our database)" << endl; 
                 transfer_money();
                 break;
-                  case 5: exchange_rates();
+        case 5: exchange_rates();
                 logged_in();
                 break;
         case 6: converting();
