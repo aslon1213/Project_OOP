@@ -1,23 +1,23 @@
 /*
 /////////////////////////////////////////////////////////////////////////////////
 Additional features: 
-1. Reset password ------- Nodir
-2. Change password --------- Nodir
 
+2. Change password --------- Nodir
 4. Credit -- 1) leasing   2) home credit    3) overdrive   4) Microcredit ----------Khabibullokh
-5. Exchange rates - update --------- Khabibullokh
 6. Exchange money -------- Aslon maybe you will do this guys
 
 
 
 /////////////////////////////////////////////////////////////////////////////
-Implemented  Aslon
+Implemented
 7. Different currencies - done
 3. transfer money   - done (not fully only some small checks should be implemented
 but generally works good, transfer money from to another account)
 8. Accounts with four currency types - <done>
 9. Depositing to four currency types based on input - done
 10. Withdrawing from one of four currency types based on input - done
+5. Exchange rates - update --------- Khabibullokh
+1. Reset password ------- Nodir
 
 */
 
@@ -49,45 +49,6 @@ string current_acc[6];
 string transfer_acc[6];
 int login();
 int add_account();
-//user data for reseting
-void reset()
-{
-    string login_name, first_name,second_name,phone; 
-    string array_data[5];
-    cout << "1. Enter user login name for which you want to reset the password: ";
-    cin >> login_name;
-    cout<<"2. Enter your first name: "<<endl;
-    cin>>first_name;
-    cout<<"3. Enter your second name: "<<endl;
-    cin>>second_name;
-    cout<<"4. Enter your phone number: "<<endl;
-    cin>>phone;
-    fstream user_data;
-    user_data.open("user_data.txt",ios::out);
-    if(user_data.is_open())
-    {
-        string line;
-        while(getline(user_data,line)){
-            stringstream ss(line);
-            string word;
-            int i = 0;
-            while (ss >> word) {
-            array_data[i] = word;
-            i++;
-            }
-            if(array_data[0] == login_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
-                cout << "Resetting your password" << endl;
-                string password;
-                cout << "New password for your account: " << endl;
-                cin >> password;
-                // Here my code goes after breakfast 
-                
-            }  
-        }
-        user_data.close();
-    }
-}
-
 
 int main(){
     fstream filename;
@@ -118,6 +79,20 @@ int main(){
     }
     return 0;
 }
+
+// account adds logged accounts credential(name,password,balance) to global array current_acc to easy access
+void login_name(string s) {
+    stringstream ss(s);
+    string word;
+    int i = 0;
+    while (ss >> word) {
+        current_acc[i] = word;
+        i++;
+    }    
+    
+}
+
+
 
 // writies changes made to account to data.txt
 void write_changes(int cho = 0){   
@@ -224,6 +199,61 @@ void write_changes_user_data(string arr[]){
 
 }
 
+void change_password(string log_name, string new_password, int cho = 0) 
+{
+    string array_data[5];
+    fstream user_data, filename;
+    user_data.open("user_data.txt",ios::in);
+    filename.open("data.txt",ios::in);
+    if(user_data.is_open() && filename.is_open() )
+    {
+        string line;
+        while(getline(user_data,line))
+        {
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) 
+            {
+            array_data[i] = word;
+            i++;
+            }
+            if(array_data[0] == log_name) 
+            {
+                array_data[1] = new_password;
+                write_changes_user_data(array_data);
+                if(cho == 0)
+                {
+                current_acc[1] = new_password;
+                write_changes(0);
+                cout << "Your password has been changed" << endl;
+            }else 
+            {
+                string line_2;
+                while(getline(filename,line_2))
+                {
+                    login_name(line_2);
+                    if(current_acc[0] == array_data[0])
+                    {
+                    current_acc[1] = new_password;
+                    write_changes(0);
+                    cout << "Your password has been changed" << endl;
+                    }
+                }
+            }
+                
+            }
+                 
+                break;
+                
+        
+        }
+    }
+    user_data.close();
+    filename.close();
+}
+
+
 // to convert from string to int given string and return integer value
 int convert_from_str_to_int(string c) {
     
@@ -278,18 +308,6 @@ void deposit(int cho = 0,int cur = 2, int money = 0)
     
 }
 
-
-// account adds logged accounts credential(name,password,balance) to global array current_acc to easy access
-void login_name(string s) {
-    stringstream ss(s);
-    string word;
-    int i = 0;
-    while (ss >> word) {
-        current_acc[i] = word;
-        i++;
-    }    
-    
-}
 
 
 // checks whether a new given account name exist in file(data.txt) or not
@@ -510,8 +528,9 @@ int logged_in() {
     cout << "         (✷‿✷)                  4. Transfer money                         (✷‿✷)" << endl;
     cout << "         (✷‿✷)                  5. Daily exchange rates                   (✷‿✷)" << endl;
     cout<<  "         (✷‿✷)                  6. Converting money into other currencies (✷‿✷)  "<<endl;
-    cout << "         (✷‿✷)                  7. Pay to inha (5% cashback)              (✷‿✷)"    << endl;
-    cout << "         (✷‿✷)                  8. Exit (may need to give feedback)       (✷‿✷)" << endl;
+    cout << "         (✷‿✷)                  7. Pay to inha (5% cashback)              (✷‿✷)"  << endl;
+    cout << "         (✷‿✷)                  8. Change password of current account     (✷‿✷)   " << endl;
+    cout << "         (✷‿✷)                  9. Exit (may need to give feedback)       (✷‿✷)" << endl;
     cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n ";
     int choice;
     string tr_acc; //transfer account
@@ -554,7 +573,18 @@ int logged_in() {
         logged_in();
         break;
 
-    case 8:
+    /*case 8: system("clear");
+            cout << "CHANGING PASSWORD OF CURRENT ACCOUNT MENU" << endl;
+            cout << "New password: ";
+            string new_passss;
+            cin >> new_passss;
+
+            change_password(current_acc[0],new_passss,0);
+            logged_in();
+            break;*/
+
+
+    case 9:
         int choice;
         cout << "Please, Provide feedback before you leave, It will help us to improve our services :))" << endl << endl;
         cout << "Type 1 to give feedback or Type anything to exit from your account ----> ";
@@ -591,11 +621,12 @@ void reset()
     cin>>second_name;
     cout<<"4. Enter your phone number: "<<endl;
     cin>>phone;
+
     fstream user_data,filename;
 
     user_data.open("user_data.txt",ios::in);
     filename.open("data.txt",ios::in);
-    if(user_data.is_open() && filename.is_open() )
+    if(user_data.is_open())
     {
         string line;
         while(getline(user_data,line)){
@@ -610,29 +641,16 @@ void reset()
                 cout << "Resetting your password" << endl;
                 cout << "New password for your account: " << endl;
                 cin >> password;
-                // Here my code goes after breakfast
-                array_data[1] = password;
-                write_changes_user_data(array_data);
-                string line_2;
-                while(getline(filename,line_2))
-                {
-                    login_name(line_2);
-                    if(current_acc[0] == array_data[0])
-                    {
-                        current_acc[1] = password;
-                        main();
-                        break;
-                    }
-                }
-                write_changes(0); 
-                break;
+                change_password(log_name,password,1);
+                main();
                 
             }  
         }
     }
     user_data.close();
-    filename.close();
 }
+
+
 
 
 
@@ -727,27 +745,27 @@ void converting() {
     cout << "How much money you wanna convert?\n";
     cin >> value;
     if (currency == "Dollars" || currency == "dollars" || currency == "USD") {
-        if (currency2 == "Rub" || currency == "rub") {
+        if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 74.77;
             cout << value << "$ is equal to " << value2 << " rub "<< "\n";
         }
-        else if (currency2 == "Sum" || currency == "sum") {
+        else if (currency2 == "Sum" || currency2 == "sum") {
             value2 = value * 9800;
             cout << value << "$ is equal to " << value2<< " sum" << "\n";
 
         }
-        else if (currency2 == "Euro" || currency == "euro") {
+        else if (currency2 == "Euro" || currency2 == "euro") {
             value2 = value * 1;
             cout << value << "$ is equal to " << value2<<" euros " << "\n";
 
         }
     }
     else if (currency == "Rub" || currency == "rub") {
-        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
             value2 = value * 0.013;
             cout << value << " rubs is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Sum" || currency == "sum") {
+        else if (currency2 == "Sum" || currency2 == "sum") {
             value2 = value * 144.37;
 
             cout << value << " rubs is equal to " << value2<<" sums"        << "\n";
@@ -758,11 +776,11 @@ void converting() {
         }
     }
     else if (currency == "euro" || currency == "Euro") {
-        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
+        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
             value2 = value * 1.12;
             cout << value << " euros is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Rub" || currency == "rub") {
+        else if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 84.02;
             cout << value << " euros is equal to " << value2<<" rubs"      << "\n";
         }
