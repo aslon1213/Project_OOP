@@ -75,7 +75,7 @@ void reset()
             array_data[i] = word;
             i++;
             }
-            if(array_data[0] == login_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] = phone) {
+            if(array_data[0] == login_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
                 cout << "Resetting your password" << endl;
                 string password;
                 cout << "New password for your account: " << endl;
@@ -261,24 +261,24 @@ int new_account_check(string name) {
 
 void inha_contract_pay() {
     
-     float amountM; char cond; string id ;
+     float amountM; string cond; string id ;
         int countN = 0;
 
         if (countN != 6 || id.length()!=6) { 
             countN = 0; 
-            cout << "Enter id of your account = "; cin >> id; 
+            cout << "Enter id number = "; cin >> id; 
 
-}       cout << " * How much money you want to pay for this account (limit: 1-100) = ";  
+}       cout << " * How much money you want to pay for this account (limit: 750-3000$) = ";  
         cin >> amountM;
-        if (amountM >= 1 && amountM <= 100 ) 
+        if (amountM >= 750 && amountM <= 3000 ) 
         {//condition for amount of money
             cout << " Accound id: " << id << endl; 
             cout << " Amount of money you want to pay ? " << amountM << endl; 
-            cout << " * Is everything correct(Y/N) = "; cin >> cond; 
-            if (cond == 'y' || cond == 'Y' ) { 
+            cout << " * Is everything correct(Yes/No) = "; cin >> cond; 
+            if (cond == "Yes" || cond == "yes" || cond == "Y" || cond=="y" ) { 
                 int cashback;
                 cashback = amountM * 0.05;
-                cout << " *** Payment has been successfully excuted � \n"; 
+                cout << " *** Payment has been successfully excuted  \n"; 
                 cout << " *** You received " << cashback << "$ as cashback to your balance"; 
                 deposit(0,2,cashback);
             } 
@@ -452,15 +452,15 @@ int transfer_money(){
 
 // This fucntion opens - The window after succesfull login happens
 int logged_in() {
-    cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>> Our MENU(operations): <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+    cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>Our MENU(operations):<<<<<<<<<<<<<<<<<<<<<\n";
     cout << "         (✷‿✷)                  1. Balance                                (✷‿✷)" << endl;
     cout << "         (✷‿✷)                  2. Withdraw                               (✷‿✷)" << endl;
     cout << "         (✷‿✷)                  3. Deposit                                (✷‿✷)" << endl;
     cout << "         (✷‿✷)                  4. Transfer money                         (✷‿✷)" << endl;
     cout << "         (✷‿✷)                  5. Daily exchange rates                   (✷‿✷)" << endl;
-    cout<<  "         (✷‿✷)                  6. Converting money into other currencies (✷‿✷)  \n";
-    cout << " 7. Pay to inha" << endl;
-    cout << "         (✷‿✷)                  8. Exit (may need to give feedback)            (✷‿✷)" << endl;
+    cout<<  "         (✷‿✷)                  6. Converting money into other currencies (✷‿✷)  "<<endl;
+    cout << "         (✷‿✷)                  7. Pay to inha (5% cashback)              (✷‿✷)"    << endl;
+    cout << "         (✷‿✷)                  8. Exit (may need to give feedback)       (✷‿✷)" << endl;
     cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n ";
     int choice;
     string tr_acc; //transfer account
@@ -486,10 +486,6 @@ int logged_in() {
                if(wallet_type==5){
                    logged_in();
                }
-                deposit(0,wallet_type + 1,0);
-
-                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) " <<endl << "5: Exit --------- ";
-                cin >> wallet_type;
                 int moneydeposit;
                 cout << "How much you want to deposit : ";
                 cin >> moneydeposit;
@@ -497,7 +493,6 @@ int logged_in() {
                 logged_in();
                 break;
                 case 5: exchange_rates();
-
                 logged_in();
                 break;
                 
