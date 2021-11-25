@@ -180,8 +180,8 @@ void write_changes_user_data(string arr[]){
     
 
     // copying data from user_data.txt to template file 
-    main_file.open("user_data.txt",ios::out);
-    tempfile.open("tem_data.txt",ios::in);
+    main_file.open("user_data.txt",ios::in);
+    tempfile.open("tem_data.txt",ios::out);
     if(main_file.is_open() && tempfile.is_open())
     {
         string line;
@@ -193,8 +193,8 @@ void write_changes_user_data(string arr[]){
         main_file.close();
     }
 
-    main_file.open("user_data.txt",ios::in);
-    tempfile.open("tem_data.txt",ios::out);
+    main_file.open("user_data.txt",ios::out);
+    tempfile.open("tem_data.txt",ios::in);
 
     if(tempfile.is_open() && main_file.is_open())
     {
@@ -214,6 +214,8 @@ void write_changes_user_data(string arr[]){
                 main_file << arr[0] << " " << arr[1] << " " << arr[2] << " " << arr[3] << " " << arr[4] <<endl;
                 continue;
             }
+            main_file << arr[0] << " " << arr[1] << " " << arr[2] << " " << arr[3] << " " << arr[4] <<endl;
+
 
         }
     }
@@ -591,8 +593,8 @@ void reset()
     cin>>phone;
     fstream user_data,filename;
 
-    user_data.open("user_data.txt",ios::out);
-    filename.open("data.txt",ios::out);
+    user_data.open("user_data.txt",ios::in);
+    filename.open("data.txt",ios::in);
     if(user_data.is_open() && filename.is_open() )
     {
         string line;
@@ -618,9 +620,12 @@ void reset()
                     if(current_acc[0] == array_data[0])
                     {
                         current_acc[1] = password;
+                        main();
+                        break;
                     }
                 }
                 write_changes(0); 
+                break;
                 
             }  
         }
