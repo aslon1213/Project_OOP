@@ -50,46 +50,6 @@ string transfer_acc[6];
 int login();
 int add_account();
 //user data for reseting
-void reset()
-{
-    string login_name, first_name,second_name,phone;
-    string password; 
-    string array_data[5];
-    cout << "1. Enter user login name for which you want to reset the password: ";
-    cin >> login_name;
-    cout<<"2. Enter your first name: "<<endl;
-    cin>>first_name;
-    cout<<"3. Enter your second name: "<<endl;
-    cin>>second_name;
-    cout<<"4. Enter your phone number: "<<endl;
-    cin>>phone;
-    fstream user_data;
-    user_data.open("user_data.txt",ios::out);
-    if(user_data.is_open())
-    {
-        string line;
-        while(getline(user_data,line)){
-            stringstream ss(line);
-            string word;
-            int i = 0;
-            while (ss >> word) {
-            array_data[i] = word;
-            i++;
-            }
-            if(array_data[0] == login_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
-                cout << "Resetting your password" << endl;
-                cout << "New password for your account: " << endl;
-                cin >> password;
-                // Here my code goes after breakfast 
-                
-            }  
-        }
-        user_data.close();
-    }
-
-
-
-}
 
 
 int main(){
@@ -185,9 +145,11 @@ void write_changes_user_data(string arr[]){
     // copying data from user_data.txt to template file 
     main_file.open("user_data.txt",ios::out);
     tempfile.open("tem_data.txt",ios::in);
-     if(main_file.is_open() && tempfile.is_open()){
+    if(main_file.is_open() && tempfile.is_open())
+    {
         string line;
-        while(getline(main_file,line)){
+        while(getline(main_file,line))
+        {
             tempfile << line << endl;
         }
         tempfile.close();
@@ -197,14 +159,17 @@ void write_changes_user_data(string arr[]){
     main_file.open("user_data.txt",ios::in);
     tempfile.open("tem_data.txt",ios::out);
 
-    if(tempfile.is_open() && main_file.is_open()){
+    if(tempfile.is_open() && main_file.is_open())
+    {
         string line;
-        while(getline(tempfile,line)){
+        while(getline(tempfile,line))
+        {
             string linesss[5];
             stringstream ss(line);
             string word;
             int i = 0;
-            while (ss >> word){
+            while (ss >> word)
+            {
                 linesss[i] = word;
                 i++;
             }
@@ -568,6 +533,62 @@ int logged_in() {
     }
     return 0;
 }
+
+// function to reset 
+void reset()
+{
+    string log_name, first_name,second_name,phone;
+    string password; 
+    string array_data[5];
+    cout << "1. Enter user login name for which you want to reset the password: ";
+    cin >> log_name;
+    cout<<"2. Enter your first name: "<<endl;
+    cin>>first_name;
+    cout<<"3. Enter your second name: "<<endl;
+    cin>>second_name;
+    cout<<"4. Enter your phone number: "<<endl;
+    cin>>phone;
+    fstream user_data,filename;
+
+    user_data.open("user_data.txt",ios::out);
+    filename.open("data.txt",ios::out);
+    if(user_data.is_open() && filename.is_open() )
+    {
+        string line;
+        while(getline(user_data,line)){
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) {
+            array_data[i] = word;
+            i++;
+            }
+            if(array_data[0] == log_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
+                cout << "Resetting your password" << endl;
+                cout << "New password for your account: " << endl;
+                cin >> password;
+                // Here my code goes after breakfast
+                array_data[1] = password;
+                write_changes_user_data(array_data);
+                string line_2;
+                while(getline(filename,line_2))
+                {
+                    login_name(line_2);
+                    if(current_acc[0] == array_data[0])
+                    {
+                        current_acc[1] = password;
+                    }
+                }
+                write_changes(0); 
+                
+            }  
+        }
+    }
+    user_data.close();
+    filename.close();
+}
+
+
 
 
 // login checking function
