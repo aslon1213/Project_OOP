@@ -173,6 +173,55 @@ void write_changes(int cho = 0){
     }
 }
 
+
+void write_changes_user_data(string arr[]){
+    fstream main_file; // main file data to read from
+    fstream tempfile; // template file
+    
+
+    // copying data from user_data.txt to template file 
+    main_file.open("user_data.txt",ios::out);
+    tempfile.open("tem_data.txt",ios::in);
+    if(main_file.is_open() && tempfile.is_open())
+    {
+        string line;
+        while(getline(main_file,line))
+        {
+            tempfile << line << endl;
+        }
+        tempfile.close();
+        main_file.close();
+    }
+
+    main_file.open("user_data.txt",ios::in);
+    tempfile.open("tem_data.txt",ios::out);
+
+    if(tempfile.is_open() && main_file.is_open())
+    {
+        string line;
+        while(getline(tempfile,line))
+        {
+            string linesss[5];
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word)
+            {
+                linesss[i] = word;
+                i++;
+            }
+            if(linesss[0] == arr[0]) {
+                main_file << arr[0] << " " << arr[1] << " " << arr[2] << " " << arr[3] << " " << arr[4] <<endl;
+                continue;
+            }
+
+        }
+    }
+    main_file.close();
+    tempfile.close();
+
+}
+
 // to convert from string to int given string and return integer value
 int convert_from_str_to_int(string c) {
     
@@ -432,15 +481,15 @@ int transfer_money(){
         break;
     case 2: withdraw(money,3);
             deposit(1,3,money);
-            logged_in;
+            logged_in();
             break;
     case 3: withdraw(money,4);
             deposit(1,4,money);
-            logged_in;
+            logged_in();
             break;
     case 4: withdraw(money,5);
             deposit(1,5,money);
-            logged_in;
+            logged_in();
             break;
     case 5: return 0;
     default: cout << "Please choose one from above" << endl;
@@ -526,6 +575,62 @@ int logged_in() {
     return 0;
 }
 
+// function to reset 
+void reset()
+{
+    string log_name, first_name,second_name,phone;
+    string password; 
+    string array_data[5];
+    cout << "1. Enter user login name for which you want to reset the password: ";
+    cin >> log_name;
+    cout<<"2. Enter your first name: "<<endl;
+    cin>>first_name;
+    cout<<"3. Enter your second name: "<<endl;
+    cin>>second_name;
+    cout<<"4. Enter your phone number: "<<endl;
+    cin>>phone;
+    fstream user_data,filename;
+
+    user_data.open("user_data.txt",ios::out);
+    filename.open("data.txt",ios::out);
+    if(user_data.is_open() && filename.is_open() )
+    {
+        string line;
+        while(getline(user_data,line)){
+            stringstream ss(line);
+            string word;
+            int i = 0;
+            while (ss >> word) {
+            array_data[i] = word;
+            i++;
+            }
+            if(array_data[0] == log_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
+                cout << "Resetting your password" << endl;
+                cout << "New password for your account: " << endl;
+                cin >> password;
+                // Here my code goes after breakfast
+                array_data[1] = password;
+                write_changes_user_data(array_data);
+                string line_2;
+                while(getline(filename,line_2))
+                {
+                    login_name(line_2);
+                    if(current_acc[0] == array_data[0])
+                    {
+                        current_acc[1] = password;
+                    }
+                }
+                write_changes(0); 
+                
+            }  
+        }
+    }
+    user_data.close();
+    filename.close();
+}
+
+
+
 
 // login checking function
 int login() {
@@ -546,7 +651,7 @@ int login() {
     }
     cout << "The login name : ";
     cin >> name;
-    if((name == "reset" || password == "reset" || name == "RESET" || name == "Reset") && i >= 3) 
+    if((name == "reset" || password == "reset" ||name == "RESET" || name == "Reset") && i >= 3) 
     {
         cout << "You have been redirected to reset password tool !!!!" << endl << endl;
         reset();
@@ -617,27 +722,27 @@ void converting() {
     cout << "How much money you wanna convert?\n";
     cin >> value;
     if (currency == "Dollars" || currency == "dollars" || currency == "USD") {
-        if (currency2 == "Rub" || currency2 == "rub") {
+        if (currency2 == "Rub" || currency == "rub") {
             value2 = value * 74.77;
             cout << value << "$ is equal to " << value2 << " rub "<< "\n";
         }
-        else if (currency2 == "Sum" || currency2 == "sum") {
+        else if (currency2 == "Sum" || currency == "sum") {
             value2 = value * 9800;
             cout << value << "$ is equal to " << value2<< " sum" << "\n";
 
         }
-        else if (currency2 == "Euro" || currency2 == "euro") {
+        else if (currency2 == "Euro" || currency == "euro") {
             value2 = value * 1;
             cout << value << "$ is equal to " << value2<<" euros " << "\n";
 
         }
     }
     else if (currency == "Rub" || currency == "rub") {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
             value2 = value * 0.013;
             cout << value << " rubs is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Sum" || currency2 == "sum") {
+        else if (currency2 == "Sum" || currency == "sum") {
             value2 = value * 144.37;
 
             cout << value << " rubs is equal to " << value2<<" sums"        << "\n";
@@ -648,15 +753,15 @@ void converting() {
         }
     }
     else if (currency == "euro" || currency == "Euro") {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
             value2 = value * 1.12;
             cout << value << " euros is equal to " << value2<<" dollars" << "\n";
         }
-        else if (currency2 == "Rub" || currency2 == "rub") {
+        else if (currency2 == "Rub" || currency == "rub") {
             value2 = value * 84.02;
             cout << value << " euros is equal to " << value2<<" rubs"      << "\n";
         }
-        else if (currency2 == "Sum" || currency2 == "sum") {
+        else if (currency2 == "Sum" || currency == "sum") {
 
             value2 = value * 1.46;
 
@@ -665,16 +770,16 @@ void converting() {
         }
     }
     else if (currency == "Sum" || currency == "sum" ) {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollars" || currency == "dollars" || currency == "USD") {
             value2 = value * 0.009;
             cout << value << "sums is equal to " << value2<<"dollars" << "\n";
         }
-        else if (currency2 == "Euro" || currency2 == "euro") {
+        else if (currency2 == "Euro" || currency == "euro") {
             value2 = value * 0.67;
             cout << value << " sums is equal to " << value2<<" euros" << "\n";
 
         }
-        else if (currency2 == "Rub" || currency2 == "rub") {
+        else if (currency2 == "Rub" || currency == "rub") {
             value2 = value * 9805;
             cout << value << " sums is equal to " << value2<< " rubs" << "\n";
 
