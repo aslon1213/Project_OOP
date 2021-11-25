@@ -435,8 +435,11 @@ int logged_in() {
                 logged_in();
                 break;
         case 3: cout << "Please, choose one of your wallets below   " <<endl;
-                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) " <<endl;
+                cout << "1: Dollar" << endl << "2: Euro - (€)" << endl <<"3. Uzbek Som ---> UZS() " << endl <<"4: Russian Ruble ---> RB(₽) \n" <<"5: Back to menu----> "<<endl;
                 cin >> wallet_type;
+               if(wallet_type==5){
+                   logged_in();
+               }
                 deposit(0,wallet_type + 1,0);
                 logged_in();
                 break;
