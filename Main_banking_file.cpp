@@ -21,9 +21,15 @@ but generally works good, transfer money from to another account)
 1. Reset password ------- Nodir
 
 */
-
-
-
+/*
+|--------           |---------|   |\      |     |  /
+|       |           |         |   | \     |     | /
+|       |           |         |   |  \    |     |/
+|--------           |---------|   |   \   |     |\
+|       |           |         |   |    \  |     | \
+|       |           |         |   |     \ |     |  \
+|--------           |         |   |      \|     |   \
+*/
 
 // Ballar mana shhu faylga yoziladi kodlariz
 // Ertaga qanaqa ishlash kerakligini tushuntirishga harakat qilama
@@ -34,9 +40,11 @@ but generally works good, transfer money from to another account)
 #include <string>
 #include <cstring>
 #include <sstream>
-
-
+#include <stdlib.h>
+//#include <windows.h>
 using namespace std;
+
+
 int bal;
 int main();
 //Exchange rates
@@ -55,8 +63,23 @@ int add_account();
 
 // main menu and main function
 int main(){
+    //HANDLE h= GetStdHandle(STD_OUTPUT_HANDLE);
+    //SetConsoleTextAttribute(h,2); 
     fstream filename;
     fstream user_data;
+    cout << "|--------           |---------|   |↘      |     |  /"<< endl;
+    cout << "|       |           |         |   | ↘     |     | /"<< endl;
+    cout << "|       |           |         |   |  ↘    |     |/"<< endl;
+    cout << "|--------           |---------|   |   ↘   |     |↘"<< endl;
+    cout << "|       |           |         |   |    ↘  |     | ↘" << endl;
+    cout << "|       |           |         |   |     ↘ |     |  ↘" << endl;
+    cout << "|--------           |         |   |      ↘|     |   ↘" << endl;
+    cout << "" << endl;
+    cout << "" << endl;
+    cout << "" << endl;
+
+
+    //system("color 2");
     int choice;
        cout << "         🏦🏦🏦  Welcome to our bank named 'BANK'! 🏦🏦🏦         \n ";
     cout << ">>>>>>>>>>>>> Please login or add acoount: <<<<<<<<<<<<<<<" << "\n";
@@ -446,13 +469,12 @@ int withdraw(int with, int cur = 2){
 int transfer_money(){
     
     // checking transferring accounts existense and assigning values of it to a array transfer_acc[6]
-    string tr_acc;
     fstream myfile;
     myfile.open("data.txt",ios::in);
     if(myfile.is_open()){
         int n = 0;
         do 
-        {
+        {   string tr_acc;
             cout << "To which Account you want to transfer money: ";
             cin >> tr_acc;
             string line;
@@ -777,14 +799,13 @@ void exchange_rates()
 
 
 //function to do smth magical - yeah magical 
-void color()
+/*void color()
 {
-  cout << "Hello" << endl;
   //system("color *background**foreground*");//This will give you color information
-  system("color A1");
-
- 
-}
+  //HANDLE h= GetStdHandle(STD_OUTPUT_HANDLE);
+  //SetConsoleTextAttribute(h,2);
+    system("color 02");  
+}*/
 
 
 //Conversion proggram
