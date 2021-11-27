@@ -1,7 +1,7 @@
 /* Team members
    U2110166 Aslonkhuja Khamidov
    U2110177 Nodirbek Khudoyberdiev
-   U21101** Bahodir Khamidov
+   U2110167 Bahodir Khamidov
    U21101** Khabibullokh 
      
       */
