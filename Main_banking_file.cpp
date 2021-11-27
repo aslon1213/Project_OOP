@@ -1,41 +1,18 @@
-/*
-/////////////////////////////////////////////////////////////////////////////////
-Additional features: 
-4. Credit -- 1) leasing   2) home credit    3) overdrive   4) Microcredit ----------Khabibullokh
-6. Exchange money -------- Aslon maybe you will do this guys
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-Implemented
-1. Add account and store it - checks included
-2. pay to inha
-2. Change password --------- Nodir
-7. Different currencies - done
-3. transfer money   - done (not fully only some small checks should be implemented
-but generally works good, transfer money from to another account)
-8. Accounts with four currency types - <done>
-9. Depositing to four currency types based on input - done
-10. Withdrawing from one of four currency types based on input - done
-5. Exchange rates - update --------- Khabibullokh
-1. Reset password ------- Nodir
-
-*/
-
-
-
-
-// Ballar mana shhu faylga yoziladi kodlariz
-// Ertaga qanaqa ishlash kerakligini tushuntirishga harakat qilama
-// Banking system 
-// banking system 
+/* Team members
+   U2110166 Aslonkhuja Khamidov
+   U2110177 Nodirbek Khudoyberdiev
+   U21101** Bahodir Khamidov
+   U21101** Khabibullokh 
+     
+      */
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <cstring>
 #include <sstream>
-
+#include <stdlib.h>
 using namespace std;
+
 int bal;
 int main();
 //Exchange rates
@@ -54,6 +31,8 @@ int add_account();
 
 // main menu and main function
 int main(){
+    //HANDLE h= GetStdHandle(STD_OUTPUT_HANDLE);
+    //SetConsoleTextAttribute(h,2); 
     fstream filename;
     fstream user_data;
     cout << "           * * * * *      * * * * * *   *       *     *   *"<< endl;
@@ -63,7 +42,6 @@ int main(){
     cout << "           *       *      *         *   *    *  *     * *" << endl;
     cout << "           *       *      *         *   *     * *     *  *" << endl;
     cout << "           * * * * *      *         *   *       *     *   *" << endl;
-    cout << "" << endl;
     cout << "" << endl;
     cout << "" << endl;
     int choice;
@@ -455,13 +433,12 @@ int withdraw(int with, int cur = 2){
 int transfer_money(){
     
     // checking transferring accounts existense and assigning values of it to a array transfer_acc[6]
-    string tr_acc;
     fstream myfile;
     myfile.open("data.txt",ios::in);
     if(myfile.is_open()){
         int n = 0;
         do 
-        {
+        {   string tr_acc;
             cout << "To which Account you want to transfer money: ";
             cin >> tr_acc;
             string line;
@@ -812,7 +789,6 @@ void exchange_rates()
   
  
 } 
-
 
 
 
