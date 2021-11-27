@@ -2,7 +2,7 @@
    U2110166 Aslonkhuja Khamidov
    U2110177 Nodirbek Khudoyberdiev
    U2110167 Bahodir Khamidov
-   U21101** Khabibullokh 
+   U2110164 Khabibullokh Khallokov
      
       */
 #include <iostream>
@@ -10,7 +10,6 @@
 #include <string>
 #include <cstring>
 #include <sstream>
-#include <stdlib.h>
 using namespace std;
 
 int bal;
@@ -326,28 +325,28 @@ int new_account_check(string name) {
 //ffff
 void inha_contract_pay() {
     
-     float amountM; string cond; string id ;
+     float amount; string cond; string id ;
         int countN = 0;
 
         if (countN != 6 || id.length()!=6) { 
             countN = 0; 
             cout << "Enter id number = "; cin >> id; 
 
-}       cout << " * How much money you want to pay for this account (limit: 750-3000$) = ";  
-        cin >> amountM;
-        if (amountM >= 750 && amountM <= 3000 ) 
+}       cout << " * How much money you want to pay ?(limit: 750$-3000$) = ";  
+        cin >> amount;
+        if (amount >= 750 && amount <= 3000 ) 
         {//condition for amount of money
             cout << " Accound id: " << id << endl; 
-            cout << " Amount of money you want to pay ? " << amountM << endl; 
-            cout << " * Is everything correct(Yes/No) = "; cin >> cond; 
+            cout << " Amount of money you want to pay ? " << amount << endl; 
+            cout << " * Is everything correct(Yes/No)? = "; cin >> cond; 
             if (cond == "Yes" || cond == "yes" || cond == "Y" || cond=="y" ) { 
                 int cashback;
-                cashback = amountM * 0.05;
-                cout << " *** Payment has been successfully excuted  \n"; 
+                cashback = amount * 0.05;
+                cout << " *** You have paid succesfully \n"; 
                 cout << " *** You received " << cashback << "$ as cashback to your balance"; 
                 deposit(0,2,cashback);
             } 
-            else cout << " *** Payment is cancelled :(\n"; 
+            else cout << " *** Unfortunately payment is cancelled :(\n"; 
         } 
 }
 
@@ -630,9 +629,7 @@ int logged_in() {
     case 7: inha_contract_pay();
             logged_in();
             break;
-    case 12:
-            logged_in();
-            break;
+    
 
     default:cout << "Our team is working on this, please wait" << endl;
             logged_in();
@@ -872,7 +869,7 @@ void converting() {
     }
         else {
 
-        cout << "Unfortunately you have mistaken, check spelling. Try again please";
+        cout << "Unfortunately you have mistaken, check spelling. Try again please :)";
 
     }
 }
