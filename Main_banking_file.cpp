@@ -50,43 +50,6 @@ string transfer_acc[6];
 int login();
 int add_account();
 //user data for reseting
-void reset()
-{
-    string login_name, first_name,second_name,phone; 
-    string array_data[5];
-    cout << "1. Enter user login name for which you want to reset the password: ";
-    cin >> login_name;
-    cout<<"2. Enter your first name: "<<endl;
-    cin>>first_name;
-    cout<<"3. Enter your second name: "<<endl;
-    cin>>second_name;
-    cout<<"4. Enter your phone number: "<<endl;
-    cin>>phone;
-    fstream user_data;
-    user_data.open("user_data.txt",ios::out);
-    if(user_data.is_open())
-    {
-        string line;
-        while(getline(user_data,line)){
-            stringstream ss(line);
-            string word;
-            int i = 0;
-            while (ss >> word) {
-            array_data[i] = word;
-            i++;
-            }
-            if(array_data[0] == login_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
-                cout << "Resetting your password" << endl;
-                string password;
-                cout << "New password for your account: " << endl;
-                cin >> password;
-                // Here my code goes after breakfast 
-                
-            }  
-        }
-        user_data.close();
-    }
-}
 
 
 int main(){
@@ -580,6 +543,7 @@ int logged_in() {
 // function to reset 
 void reset()
 {
+    system("clear");
     string log_name, first_name,second_name,phone;
     string password; 
     string array_data[5];
@@ -610,6 +574,16 @@ void reset()
                 cout << "Resetting your password" << endl;
                 cout << "New password for your account: " << endl;
                 cin >> password;
+                 const int SIZE = 12; // Maximum size for the c-string
+                char pass[SIZE];   // to hold password c-string.
+                int length;
+                  length = strlen(pass);
+        while (length < 6 || length > 10)
+{
+    cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n"<< "Enter the password again: ";
+    cin >> pass;
+    length = strlen(pass);
+}
                 // Here my code goes after breakfast
                 array_data[1] = password;
                 write_changes_user_data(array_data);
@@ -619,12 +593,13 @@ void reset()
                     login_name(line_2);
                     if(current_acc[0] == array_data[0])
                     {
+
                         current_acc[1] = password;
+                        write_changes(0);
                         main();
                         break;
                     }
-                }
-                write_changes(0); 
+                } 
                 break;
                 
             }  
@@ -663,6 +638,7 @@ int login() {
     }
     cout << "The password : ";
     cin >> password;
+
     if((name == "reset" || password == "reset") && i >= 3) {
         cout << "You have been redirected to password reset tool !!!!" << endl << endl;
         reset();
