@@ -791,7 +791,7 @@ void exchange_rates()
     Y = d * 6.39;
     cout << d << "$ => " << R << " Rubs " << endl;
     cout << d << "$ => " << E << " Euros " << endl; // outputs
-    cout << d << "$ => " << S << " Sôms  " << endl;
+    cout << d << "$ => " << S << " Sums  " << endl;
     cout << d << "$ => " << Y << " Chinese yuans  " << endl;
     cout << " These exchange rates only for today, it is changing on a daily basis 🤩🤩🤩 \n";
 
