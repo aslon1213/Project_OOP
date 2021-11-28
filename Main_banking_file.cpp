@@ -12,7 +12,7 @@
 #include <cstring>
 #include <sstream>
 using namespace std;
-//Global variable for balance
+
 int bal;
 int main();
 //Exchange rates
@@ -22,16 +22,16 @@ void feedback();
 int logged_in();
 // this array to store credentials of currently logged in account
 string current_acc[6];
-//
+//this array used to store credentials of account being used to transfer money 
 string transfer_acc[6];
 int login();
 int add_account();
 //user data for reseting
 
 
-// main menu and main function
+// and main function
 int main() {
-    
+   
     fstream filename;
     fstream user_data;
     cout << "           * * * * *   * * * * * *   *       *   *   *" << endl;
@@ -147,7 +147,7 @@ void write_changes_user_data(string arr[]) {
 
 
     // copying data from user_data.txt to template file 
-    main_file.open("user_data.txt", ios::in);
+    main_file.open("user_data.txt", ios::in); 
     tempfile.open("tem_data.txt", ios::out);
     if (main_file.is_open() && tempfile.is_open())
     {
@@ -160,8 +160,8 @@ void write_changes_user_data(string arr[]) {
         main_file.close();
     }
 
-    main_file.open("user_data.txt", ios::out);
-    tempfile.open("tem_data.txt", ios::in);
+    main_file.open("user_data.txt", ios::out); // file rewritten - main_file_here
+    tempfile.open("tem_data.txt", ios::in); // template file
 
     if (tempfile.is_open() && main_file.is_open())
     {
@@ -176,7 +176,7 @@ void write_changes_user_data(string arr[]) {
             {
                 linesss[i] = word;
                 i++;
-            }
+            } // if condition true then write changed line and continue to next loop
             if (linesss[0] == arr[0]) {
                 main_file << arr[0] << " " << arr[1] << " " << arr[2] << " " << arr[3] << " " << arr[4] << endl;
                 continue;
@@ -250,8 +250,8 @@ void change_password(string log_name, string new_password, int cho = 0)
 
 //Withdraw money from account's wallet and write changes to data.txt
 int withdraw(int with, int cur = 2) {
-    string i = current_acc[cur];//In order to convert string into integer
-    stringstream geek(i); //Converting string to integer
+    string i = current_acc[cur];
+    stringstream geek(i);
     int bal;
     geek >> bal;
     if (bal >= 250) {
@@ -353,48 +353,49 @@ int new_account_check(string name) {
 }
 
 
-//INhas contract with 5% cashback only in our bank
+//INhas contract payment with 5% cashback only in our bank
 void inha_contract_pay() {
     
 
-    float amount; string cond;
+    float amount; string cond; //declaring a variable via operator float 
      const int SIZE = 7; // Maximum size for the c-string
     char id[SIZE];   // to hold id c-string.
     int length;
     cout << "*** Welcome to wonderful program where you can pay IUTs contract with magic 5% cashback***\n";
     cout << "Please enter id number = U"; 
-    cin >> id;
+    cin >> id; //putting stream insertion operator to accept input 
     length=strlen(id);
     while(length!=7){
         cout<<"Id number have to consist 7 numbers!! "<<endl;
-        cin>>id;
+        cin>>id;//putting stream insertion operator to accept input 
         length=strlen(id);
     }
     cout << " * How much money you want to pay ? (limit: 750$-3000$) = ";
     cin >> amount;
-    if (amount >= 750 && amount <= 3000)
+    if (amount >= 750 && amount <= 3000)//using conditianl statement if to declare condition in which amount should be between 750 and 3000$
     {//condition for amount of money
         cout << " Account id: " << id << endl;
         cout << " Amount of money you want to pay ? " << amount << endl;
-        cout << " * Is everything correct(Yes/No) = "; cin >> cond;
+        cout << " * Is everything correct(Yes/No) = "; cin >> cond;//putting stream insertion operator to accept input 
+
         if (cond == "Yes" || cond == "yes" || cond == "Y" || cond == "y") {
-            int cashback;
-            cashback = amount * 0.05;
+            int cashback;//declaring a variable via operator int
+            cashback = amount * 0.05; //formula to calculate our 5% cashback
             cout << " *** You have succesfully paid :)) *** \n";
             cout << " *** You have received " << cashback << "$ as a cashback to your balance *** \n";
             if(withdraw(amount,2)){
-                deposit(0, 2, cashback);
+                deposit(0, 2, cashback); //will go to out dollar wallet 
             }else {
-                logged_in();
+                logged_in(); //will go to our main menu
             }
             
         }
-        else cout << " *** Unfortunately payment is cancelled :( ***\n";
+        else cout << " *** Unfortunately payment is cancelled :( ***\n"; //if some errors using else statement to show different output if the condition is not met
     }
-}
+}//if some errors using else statement to show different output if the condition is not met
 
 
-// Function which manages adding a new account a file(data.txt)
+// Function which manages adding a new account to files(data.txt,user_data.txt)
 int add_account() {
     
     string name, pas2;
@@ -408,7 +409,7 @@ int add_account() {
         cin >> name;
         cout << "Password -> ";
         cin >> pass;
-        length = strlen(pass);//In order to put a limit to the length of password
+        length = strlen(pass);
         while (length < 6 || length > 10)
         {
             cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n" << "Enter the password again: ";
@@ -430,10 +431,12 @@ int add_account() {
                     cin >> second_name;
                     cout << "3. Enter your phone number" << "(note that when typing your number exclude + sign on the beginning, only numbers ----> ";
                     cin >> phone_number;
+                    // writing to data.txt
                     filename_1 << name << " " << pass << " " << "0" << " " << "0" << " " << "0" << " " << "0" << endl;
-                    filename_1.close();
+                    filename_1.close();//closing
+                    //writing to user_data.txt
                     filename_2 << name << " " << pass << " " << first_name << " " << second_name << " " << phone_number << endl;
-                    filename_2.close();
+                    filename_2.close();//closing 
                     system("clear");
                     cout << "Your account has benn succesfully added to system :)" << endl;
                     main();
@@ -457,41 +460,48 @@ int add_account() {
 
 // function to transfer money from one of the currenct user's wallets to another accounts wallet 
 int transfer_money() {
-    
 
     // checking transferring accounts existense and assigning values of it to a array transfer_acc[6]
-    fstream myfile;
-    myfile.open("data.txt", ios::in);
-    if (myfile.is_open()) {
-        int n = 0;
+    fstream myfile; 
+    myfile.open("data.txt", ios::in); // file to be read in order to check existence of transfering account
+    // checking account existence in system 
+    if (myfile.is_open())
+    {
+        int n = 0;  
+        // if n= 0 account is not data.txt, 
+        //otherwise(n= 1) it exists so loop will be repeated untill user will provide actual user_name
         do
         {
             string tr_acc;
             cout << "To which Account you want to transfer money: ";
             cin >> tr_acc;
             string line;
-            while (getline(myfile, line)) {
+            while (getline(myfile, line)) 
+            {
                 stringstream ss(line);
                 string word;
                 int i = 0;
-                while (ss >> word) {
+                while (ss >> word) 
+                {
                     transfer_acc[i] = word;
                     i++;
                 }
-                if (transfer_acc[0] == tr_acc) {
-                    n = 1;
+                if (transfer_acc[0] == tr_acc) 
+                {
+                    n = 1; 
                     break;
                 }
             }
-            if (n == 0) {
+            if (n == 0) 
+            {
                 cout << "There is no account match to transfer with this name..... Please try again !" << endl;
             }
         } while (n == 0);
     }
 
     // getting wallet type and amount of money to be used
-    int money;
-    int type; // type of wallet
+    int money; // amount of money should be transfered
+    int type; // type of wallet 
     cout << "Please choose your wallet for specific currency transfer should be done: " << endl;
     cout << "1: Dollar - ($)" << endl << "2: Euro - (€)" << endl << "3. Uzbek Som ---> UZS() " << endl << "4: Russian Ruble ---> RB(₽)  " << endl << "5: Exit --------- \n";
     cin >> type;
@@ -510,27 +520,33 @@ int transfer_money() {
     default: cout << "Please choose one from above" << endl;
         break;
     }
+    //getting amount 
     cout << "What is the amount of money you want to transfer: ";
     cin >> money;
+    //checking balance of the user, if it is below 250 or asked amount is higher than actual balance, statement will be executed
     if (money > convert_from_str_to_int(current_acc[type + 1]) - 250) {
         cout << "Sorry it seems the amount of money YOU are transferring is higher than your WALLET BALANCE!!!" << endl << endl;
         logged_in();
     }
 
-    // all actions go here
+    // all actions go here --- after all checks 
     switch (type) {
+        // dollar wallet
     case 1:  withdraw(money);
         deposit(1, 2, money);
         logged_in();
         break;
+        // euro wallet
     case 2: withdraw(money, 3);
         deposit(1, 3, money);
         logged_in();
         break;
+        //som, UZS wallet
     case 3: withdraw(money, 4);
         deposit(1, 4, money);
         logged_in();
         break;
+        // Rub wallet
     case 4: withdraw(money, 5);
         deposit(1, 5, money);
         logged_in();
@@ -542,6 +558,7 @@ int transfer_money() {
     return 0;
 }
 
+//function to change currect account's password
 int changes_cur_pass()
 {
     
@@ -574,8 +591,9 @@ int changes_cur_pass()
 
 
 // This fucntion opens - The window after succesfull login happens
+// MAIN MENU
 int logged_in() {
-   
+   // printing menu 
     cout << " ACCOUNT NAME ----- " << current_acc[0] << " --------" << endl << endl;
     cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>Our MENU(operations):<<<<<<<<<<<<<<<<<<<<\n";
     cout << "         (✷‿✷)                  1. Balance                                (✷‿✷)" << endl;
@@ -590,11 +608,14 @@ int logged_in() {
     cout << "         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n ";
     cout << "                         ****Please choose any option from menu****          \n";
     int choice;
-    string tr_acc; //transfer account
+    string exit_choice;
+    string tr_acc; //transfer account's name
     cin >> choice;
+
+    // switch case based on user's input ( note used should always input numbers not string or char or any other data type)
     switch (choice) {
-    case 1:     system("clear");
-        balance(0);
+    case 1:     system("clear"); // clear terminal 
+        balance(0); // show balance 
         logged_in();
         break;
     case 2: int money, wallet_type;
@@ -645,15 +666,20 @@ int logged_in() {
 
 
     case 9:
-        int choice;
         cout << "Please, Provide feedback before you leave, It will help us to improve our services :))" << endl << endl;
         cout << "Type 1 to give feedback or Type anything to exit from your account ----> ";
-        cin >> choice;
-        if (choice == 1) {
+        cin >> exit_choice;
+        if (exit_choice == "1") {
             feedback();
             cout << "Our team appreciate your feedback" << endl;
+        }else{
+            for(int j = 0; j < 100; j++){    
+                cout << "                   Thanks for choosing us 🙂 👋                    " << endl;
+            }
+            system("cls");
+            main();
         }
-        cout << "                   Thanks for choosing us 🙂 👋                    " << endl;
+        
         //system.pause();
         break;
     case 7: inha_contract_pay();
@@ -670,12 +696,13 @@ int logged_in() {
 
 // function to reset password of a user
 void reset()
-{
-    
+{   /*function checks whether four inputs taken from 
+    user exists and correspond with each other in user_data.txt*/    
+
     system("clear");
     string log_name, first_name, second_name, phone;
     string password;
-    string array_data[5];
+    string array_data[5]; // array to store particular user's data from user_data.txt
     cout << "1. Enter user login name for which you want to reset the password: ";
     cin >> log_name;
     cout << "2. Enter your first name: " << endl;
@@ -687,11 +714,12 @@ void reset()
 
     fstream user_data, filename;
 
-    user_data.open("user_data.txt", ios::in);
-    filename.open("data.txt", ios::in);
+    user_data.open("user_data.txt", ios::in); // 
+    filename.open("data.txt", ios::in); // 
     if (user_data.is_open())
     {
         string line;
+        // looping throught each line of user_data.txt
         while (getline(user_data, line)) {
             stringstream ss(line);
             string word;
@@ -699,7 +727,7 @@ void reset()
             while (ss >> word) {
                 array_data[i] = word;
                 i++;
-            }
+            } // if inputs correspond with user_data.txt then reset will be allowed
             if (array_data[0] == log_name && array_data[2] == first_name && array_data[3] == second_name && array_data[4] == phone) {
                 cout << "Resetting your password" << endl;
                 cout << "New password for your account: " << endl;
@@ -708,13 +736,14 @@ void reset()
                 char pass[SIZE];   // to hold password c-string.
                 int length;
                 length = strlen(pass);
+                //checking length of new password
                 while (length < 6 || length > 10)
                 {
                     cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n" << "Enter the password again: ";
                     cin >> pass;
                     length = strlen(pass);
                 }
-                // Here my code goes after breakfast
+                //then new password is rewritten to files
                 array_data[1] = password;
                 write_changes_user_data(array_data);
                 string line_2;
@@ -743,7 +772,8 @@ void reset()
 int login() {
 
 
-    int i = 0; // checking wrong input timess    
+    int i = 0; // checking wrong input times
+    // if inputs are wroong three times then user will be given a way to reset the password   
 
     while (1)
     {
@@ -776,6 +806,7 @@ int login() {
         while (getline(myfile, line))
         {
             login_name(line);
+            //if login_name and it's corresponding passwords are found in data.txt then MAIN MENU(logged_in()) will appear
             if (current_acc[0] == name && current_acc[1] == password)
             {
                 cout << current_acc[0] << " ->-> 🥳 Congratulations 🥳! You have succesfully logged to your account <-<- " << endl;
@@ -810,7 +841,7 @@ void exchange_rates()
     Y = d * 6.39;
     cout << d << "$ => " << R << " Rubs " << endl;
     cout << d << "$ => " << E << " Euros " << endl; // outputs
-    cout << d << "$ => " << S << " Sums  " << endl;
+    cout << d << "$ => " << S << " Sôms  " << endl;
     cout << d << "$ => " << Y << " Chinese yuans  " << endl;
     cout << " These exchange rates only for today, it is changing on a daily basis 🤩🤩🤩 \n";
 
@@ -824,7 +855,7 @@ void exchange_rates()
 void converting() {
     
     string currency, currency2;
-    double value, value2;
+    double value, value2; //declaring a variable via operator double
     
     cout << "<<<<<<<<<<<<< Welcome to our conversion programm, we are over the moon to see you here :)) >>>>>>>>>>>>>>>>>>\n";
     cout << "*****************************Which currency would you like to convert?***************************************\n";
@@ -836,34 +867,40 @@ void converting() {
     cin >> currency2;
     cout << "How much money you wanna convert?\n";
     cin >> value;
+    
+     
+   //using conditianl statement if to declare our condition 
+   /* using a nested loop  in which one loop resides inside another loop where the inner loop gets executed 
+   first, satisfying all the set of conditions that prevailed within the loop followed by an outer 
+   loop set of conditions.*/
     if (currency == "Dollar" || currency == "dollar" || currency == "USD") {
         if (currency2 == "Rub" || currency2 == "rub") {
-            value2 = value * 74.77;
-            cout << value << "$ is equal to " << value2 << " rub " << "\n";
+            value2 = value * 74.77;        //formula to calculate 
+            cout << value << "$ is equal to " << value2 << " rub " << "\n";//output
         }
         else if (currency2 == "Sum" || currency2 == "sum") {
-            value2 = value * 9800;
+            value2 = value * 9800;//formula to calculate 
             cout << value << "$ is equal to " << value2 << " sum" << "\n";
 
         }
         else if (currency2 == "Euro" || currency2 == "euro") {
-            value2 = value * 1;
+            value2 = value * 1;//formula to calculate 
             cout << value << "$ is equal to " << value2 << " euros " << "\n";
 
         }
     }
     else if (currency == "Rub" || currency == "rub") {
         if (currency2 == "Dollar" || currency2 == "dollar" || currency2 == "USD") {
-            value2 = value * 0.013;
+            value2 = value * 0.013;//formula to calculate 
             cout << value << " rubs is equal to " << value2 << " dollars" << "\n";
         }
         else if (currency2 == "Sum" || currency2 == "sum") {
-            value2 = value * 144.37;
+            value2 = value * 144.37;//formula to calculate 
 
             cout << value << " rubs is equal to " << value2 << " sums" << "\n";
         }
         else if (currency2 == "Euro" || currency2 == "euro") {
-            value2 = value * 0.012;
+            value2 = value * 0.012;//formula to calculate 
             cout << value << "rubs is equal to " << value2 << " euros" << "\n";
         }
     }
@@ -878,7 +915,7 @@ void converting() {
         }
         else if (currency2 == "Sum" || currency2 == "sum") {
 
-            value2 = value * 1.46;
+            value2 = value * 1.46;//formula to calculate 
 
             cout << value << " euros is equal to " << value2 << " sums" << "\n";
 
@@ -914,14 +951,15 @@ void feedback()
 {
    
     string response;
-    getline(cin, response);
+    getline(cin, response); /*The getline function takes an input stream and a string as parameters 
+    and reads a line of text from the stream into the string.*/
     cout << "Dear clients we need your feedback in order to improve the quality of our services\n ";
     cout << "Please write your feedback there =>> \n";
     getline(cin, response);  // takes input from the user and places it into the string
     fstream myfile;
     myfile.open("feedback.txt", ios::app);
     if (myfile.is_open()) {
-        myfile << current_acc[0] << " ";
+        myfile << current_acc[0] << " ";  //opening  and saving our feedback in data txt
         myfile << response;
         myfile << endl;
     }
