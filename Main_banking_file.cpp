@@ -2,7 +2,7 @@
    we did project on Macos , so that is why some codes like system("clear")=system("cls") can not be found
    U2110167 Bahodir Khamidov
    U2110166 Aslonkhuja Khamidov
-   U2110177 Nodirbek Khudoyberdiev    
+   U2110177 Nodirbek Khudoyberdiev    -->>If you ask why we called our bank like "BANK" because the first letter of our names))) such a magic!
    U2110164 Khabibullokh Khallokov
    We are from section 004 !
 */
