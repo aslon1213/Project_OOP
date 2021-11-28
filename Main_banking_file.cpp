@@ -357,9 +357,19 @@ int new_account_check(string name) {
 void inha_contract_pay() {
     
 
-    float amount; string cond; string id;
+    float amount; string cond;
+     const int SIZE = 7; // Maximum size for the c-string
+    char id[SIZE];   // to hold password c-string.
+    int length;
     cout << "*** Welcome to wonderful program where you can pay IUTs contract with magic 5% cashback***\n";
-    cout << "Please enter id number = "; cin >> id;
+    cout << "Please enter id number = U"; 
+    cin >> id;
+    length=strlen(id);
+    while(length!=7){
+        cout<<"Id number have to consist 7 numbers!! "<<endl;
+        cin>>id;
+        length=strlen(id);
+    }
     cout << " * How much money you want to pay ? (limit: 750$-3000$) = ";
     cin >> amount;
     if (amount >= 750 && amount <= 3000)
@@ -820,16 +830,15 @@ void converting() {
     cout << "*****************************Which currency would you like to convert?***************************************\n";
     
     cout << "                           (We have 4 different options: Rub, Sum, Dollars, Euro)                            \n ";
-
-    cin >> currency;
-      do{
+do{
+    cin>> currency;
     if(currency!="Dollar" || currency!="dollar"|| currency!="USD"||currency!="Rub"||currency!="rub" || currency!="Euro" || currency!="euro" || currency!="Sum" || currency!="sum"){
         cout<<"You entered incorrect currency. Try again!"<<endl;
+        
     }
     }
-     while(currency=="Dollar"|| currency=="dollar"|| currency=="USD"||currency=="Rub"||currency=="rub" || currency=="Euro" || currency=="euro" || currency=="Sum" || currency=="sum");
-    
-    cout << "To which currency you would like to convert to?\n";
+     while(currency!="Dollar"|| currency!="dollar"|| currency!="USD"||currency!="Rub"||currency!="rub" || currency!="Euro" || currency!="euro" || currency!="Sum" || currency!="sum");
+     cout << "To which currency you would like to convert to?\n";
     
     do{ 
     cin >> currency2;
@@ -837,7 +846,7 @@ void converting() {
    cout<<"You entered incorrect currency. Try again!"<<endl;
     }
     }
-    while(currency2=="Dollar" || currency2=="dollar"|| currency2=="USD"||currency2=="Rub"||currency2=="rub" || currency2=="Euro" || currency2=="euro" || currency2=="Sum" || currency2=="sum");
+    while(currency2!="Dollar" || currency2!="dollar"|| currency2!="USD"||currency2!="Rub"||currency2!="rub" || currency2!="Euro" || currency2!="euro" || currency2!="Sum" || currency2!="sum");
     
     
     cout << "How much money you wanna convert?\n";
