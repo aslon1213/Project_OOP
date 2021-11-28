@@ -2,7 +2,7 @@
    we did project on Macos , so that is why some codes like system("clear")=system("cls") can not be found
    U2110167 Bahodir Khamidov
    U2110166 Aslonkhuja Khamidov
-   U2110177 Nodirbek Khudoyberdiev    -->>If you ask why we called our bank like "BANK" because the first letter of our names))) such a magic!
+   U2110177 Nodirbek Khudoyberdiev    
    U2110164 Khabibullokh Khallokov
    We are from section 004 !
 */
@@ -359,7 +359,7 @@ void inha_contract_pay() {
 
     float amount; string cond;
      const int SIZE = 7; // Maximum size for the c-string
-    char id[SIZE];   // to hold password c-string.
+    char id[SIZE];   // to hold id c-string.
     int length;
     cout << "*** Welcome to wonderful program where you can pay IUTs contract with magic 5% cashback***\n";
     cout << "Please enter id number = U"; 
