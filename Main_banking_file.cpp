@@ -31,7 +31,7 @@ int add_account();
 
 // main menu and main function
 int main() {
-   
+    
     fstream filename;
     fstream user_data;
     cout << "           * * * * *   * * * * * *   *       *   *   *" << endl;
@@ -815,15 +815,37 @@ void converting() {
     
     string currency, currency2;
     double value, value2;
+    
     cout << "<<<<<<<<<<<<< Welcome to our conversion programm, we are over the moon to see you here :)) >>>>>>>>>>>>>>>>>>\n";
     cout << "*****************************Which currency would you like to convert?***************************************\n";
+    
     cout << "                           (We have 4 different options: Rub, Sum, Dollars, Euro)                            \n ";
+
     cin >> currency;
+      do{
+    if(currency!="Dollar" || currency!="dollar"|| currency!="USD"||currency!="Rub"||currency!="rub" || currency!="Euro" || currency!="euro" || currency!="Sum" || currency!="sum"){
+        cout<<"You entered incorrect currency. Try again!"<<endl;
+    }
+    }
+     while(currency=="Dollar"|| currency=="dollar"|| currency=="USD"||currency=="Rub"||currency=="rub" || currency=="Euro" || currency=="euro" || currency=="Sum" || currency=="sum");
+    
     cout << "To which currency you would like to convert to?\n";
+    
+    do{ 
     cin >> currency2;
+    if(currency2!="Dollar" || currency2!="dollar"|| currency2!="USD"||currency2!="Rub"||currency2!="rub" || currency2!="Euro" || currency2!="euro" || currency2!="Sum" || currency2!="sum"){
+   cout<<"You entered incorrect currency. Try again!"<<endl;
+    }
+    }
+    while(currency2=="Dollar" || currency2=="dollar"|| currency2=="USD"||currency2=="Rub"||currency2=="rub" || currency2=="Euro" || currency2=="euro" || currency2=="Sum" || currency2=="sum");
+    
+    
     cout << "How much money you wanna convert?\n";
     cin >> value;
-    if (currency == "Dollars" || currency == "dollars" || currency == "USD") {
+    
+     
+   
+    if (currency == "Dollar" || currency == "dollar" || currency == "USD") {
         if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 74.77;
             cout << value << "$ is equal to " << value2 << " rub " << "\n";
@@ -840,7 +862,7 @@ void converting() {
         }
     }
     else if (currency == "Rub" || currency == "rub") {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollar" || currency2 == "dollar" || currency2 == "USD") {
             value2 = value * 0.013;
             cout << value << " rubs is equal to " << value2 << " dollars" << "\n";
         }
@@ -855,7 +877,7 @@ void converting() {
         }
     }
     else if (currency == "euro" || currency == "Euro") {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollar" || currency2 == "dollar" || currency2 == "USD") {
             value2 = value * 1.12;
             cout << value << " euros is equal to " << value2 << " dollars" << "\n";
         }
@@ -872,7 +894,7 @@ void converting() {
         }
     }
     else if (currency == "Sum" || currency == "sum") {
-        if (currency2 == "Dollars" || currency2 == "dollars" || currency2 == "USD") {
+        if (currency2 == "Dollar" || currency2 == "dollar" || currency2 == "USD") {
             value2 = value * 0.009;
             cout << value << "sums is equal to " << value2 << "dollars" << "\n";
         }
