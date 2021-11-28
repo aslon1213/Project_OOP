@@ -12,7 +12,7 @@
 #include <cstring>
 #include <sstream>
 using namespace std;
-//Global variable for alance
+//Global variable for balance
 int bal;
 int main();
 //Exchange rates
@@ -250,8 +250,8 @@ void change_password(string log_name, string new_password, int cho = 0)
 
 //Withdraw money from account's wallet and write changes to data.txt
 int withdraw(int with, int cur = 2) {
-    string i = current_acc[cur];
-    stringstream geek(i);
+    string i = current_acc[cur];//In order to convert string into integer
+    stringstream geek(i); //Converting string to integer
     int bal;
     geek >> bal;
     if (bal >= 250) {
@@ -836,9 +836,6 @@ void converting() {
     cin >> currency2;
     cout << "How much money you wanna convert?\n";
     cin >> value;
-    
-     
-   
     if (currency == "Dollar" || currency == "dollar" || currency == "USD") {
         if (currency2 == "Rub" || currency2 == "rub") {
             value2 = value * 74.77;
