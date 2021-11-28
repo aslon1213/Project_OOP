@@ -261,6 +261,7 @@ int withdraw(int with, int cur = 2) {
             string ball = to_string(bal);
             current_acc[cur] = ball;
             write_changes(0);
+            return 1;
         }
         else {
             cout << "Sorry :( You don't have enough money to withdraw - 1" << endl;
@@ -371,8 +372,12 @@ void inha_contract_pay() {
             cashback = amount * 0.05;
             cout << " *** You have succesfully paid :)) *** \n";
             cout << " *** You have received " << cashback << "$ as a cashback to your balance *** \n";
-            deposit(0, 2, cashback);
-            withdraw(amount,2);
+            if(withdraw(amount,2)){
+                deposit(0, 2, cashback);
+            }else {
+                logged_in();
+            }
+            
         }
         else cout << " *** Unfortunately payment is cancelled :( ***\n";
     }
