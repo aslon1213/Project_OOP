@@ -248,6 +248,32 @@ void change_password(string log_name, string new_password, int cho = 0)
     filename.close();
 }
 
+//Withdraw money from account's wallet and write changes to data.txt
+int withdraw(int with, int cur = 2) {
+    string i = current_acc[cur];
+    stringstream geek(i);
+    int bal;
+    geek >> bal;
+    if (bal >= 250) {
+        if (bal >= with) {
+            bal = bal - with;
+            cout << with << " withdrawn from your account. Your current balance on this wallet is " << bal << endl;
+            string ball = to_string(bal);
+            current_acc[cur] = ball;
+            write_changes(0);
+        }
+        else {
+            cout << "Sorry :( You don't have enough money to withdraw - 1" << endl;
+        }
+    }
+    else {
+        cout << "Sorry :( You don't have enough money to withdraw - 2 or your balance is less than wintdrawing limit" << endl;
+    }
+    return 0;
+}
+
+
+
 
 // to convert from string to int given string and return integer value
 int convert_from_str_to_int(string c) {
@@ -346,7 +372,7 @@ void inha_contract_pay() {
             cout << " *** You have succesfully paid :)) *** \n";
             cout << " *** You have received " << cashback << "$ as a cashback to your balance *** \n";
             deposit(0, 2, cashback);
-            wihtdraw(amount,2);
+            withdraw(amount,2);
         }
         else cout << " *** Unfortunately payment is cancelled :( ***\n";
     }
@@ -412,29 +438,6 @@ int add_account() {
 }
 
 
-//Withdraw money from account's wallet and write changes to data.txt
-int withdraw(int with, int cur = 2) {
-    string i = current_acc[cur];
-    stringstream geek(i);
-    int bal;
-    geek >> bal;
-    if (bal >= 250) {
-        if (bal >= with) {
-            bal = bal - with;
-            cout << with << " withdrawn from your account. Your current balance on this wallet is " << bal << endl;
-            string ball = to_string(bal);
-            current_acc[cur] = ball;
-            write_changes(0);
-        }
-        else {
-            cout << "Sorry :( You don't have enough money to withdraw - 1" << endl;
-        }
-    }
-    else {
-        cout << "Sorry :( You don't have enough money to withdraw - 2 or your balance is less than wintdrawing limit" << endl;
-    }
-    return 0;
-}
 
 
 // function to transfer money from one of the currenct user's wallets to another accounts wallet 
