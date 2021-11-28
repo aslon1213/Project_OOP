@@ -12,7 +12,7 @@
 #include <cstring>
 #include <sstream>
 using namespace std;
-
+//Global variable for alance
 int bal;
 int main();
 //Exchange rates
@@ -830,25 +830,10 @@ void converting() {
     cout << "*****************************Which currency would you like to convert?***************************************\n";
     
     cout << "                           (We have 4 different options: Rub, Sum, Dollars, Euro)                            \n ";
-do{
+
     cin>> currency;
-    if(currency!="Dollar" || currency!="dollar"|| currency!="USD"||currency!="Rub"||currency!="rub" || currency!="Euro" || currency!="euro" || currency!="Sum" || currency!="sum"){
-        cout<<"You entered incorrect currency. Try again!"<<endl;
-        
-    }
-    }
-     while(currency!="Dollar"|| currency!="dollar"|| currency!="USD"||currency!="Rub"||currency!="rub" || currency!="Euro" || currency!="euro" || currency!="Sum" || currency!="sum");
-     cout << "To which currency you would like to convert to?\n";
-    
-    do{ 
+    cout << "To which currency you would like to convert to?\n";
     cin >> currency2;
-    if(currency2!="Dollar" || currency2!="dollar"|| currency2!="USD"||currency2!="Rub"||currency2!="rub" || currency2!="Euro" || currency2!="euro" || currency2!="Sum" || currency2!="sum"){
-   cout<<"You entered incorrect currency. Try again!"<<endl;
-    }
-    }
-    while(currency2!="Dollar" || currency2!="dollar"|| currency2!="USD"||currency2!="Rub"||currency2!="rub" || currency2!="Euro" || currency2!="euro" || currency2!="Sum" || currency2!="sum");
-    
-    
     cout << "How much money you wanna convert?\n";
     cin >> value;
     
