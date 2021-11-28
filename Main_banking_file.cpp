@@ -346,6 +346,7 @@ void inha_contract_pay() {
             cout << " *** You have succesfully paid :)) *** \n";
             cout << " *** You have received " << cashback << "$ as a cashback to your balance *** \n";
             deposit(0, 2, cashback);
+            wihtdraw(amount,2);
         }
         else cout << " *** Unfortunately payment is cancelled :( ***\n";
     }
