@@ -408,7 +408,7 @@ int add_account() {
         cin >> name;
         cout << "Password -> ";
         cin >> pass;
-        length = strlen(pass);
+        length = strlen(pass);//In order to put a limit to the length of password
         while (length < 6 || length > 10)
         {
             cout << "Error: password is not between 6 and " << (SIZE - 2) << " characters long.\n" << "Enter the password again: ";
