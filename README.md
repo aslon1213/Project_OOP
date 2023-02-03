@@ -1,6 +1,2 @@
 # Project_OOP
-OOP_project_for_university(simple)
-
-
-
-jifefoijwlkjaeflkjasdfijejofglsdnlsktoaerjseldkfjsglksdjlksjowpeiursklj
+This is our Project that was given as a task for 10% of our grading sistem
